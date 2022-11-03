@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+}
+
+.login-btn-center {
+  height: 100vh;
+  background: #474545;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  height: 75px;
+  width: 100px;
+  font-size: 1.8rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.modal-background {
+  height: 650px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-container {
+  width: 375px;
+  height: 500px;
+  background-color: lightblue;
+  border: #000 solid 2px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.login-input {
+  width: 320px;
+  height: 50px;
+  font-size: 3rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.login-input, .row-1, .row-2,.row-3, .row-4 {
+  margin: auto 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.order-container {
+  height: 650px;
+  width: 1000px;
+  background: #856f6d;
+  position: inherit;
+  display: flex;
+}
+
+.order-page {
+  width: 80%;
+  height: 90%;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #edd29f;
+}
+
+.order-task-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.order-task {
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  font-size: 2rem;
+  background-color: #0a6ba2;
+  color: #fff;
+  border: 1px solid #0a6ba2;
+  border-radius: 10px;
+  box-shadow: inset 5px 5px 15px #fff, inset -3px -3px 15px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.red {
+  background-color: red;
+}
+
+.page-title {
+  height: 40px;
+  width: 100%;
+  border-radius: 10px 10px 0 0 ;
+  background-color: #0f2673;
+  color: #fff;
+}
+
+.page-title h1 {
+  font-size: 3rem;
+  margin-left: 10px;
+}

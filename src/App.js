@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles.css';
+import Button from './components/Button';
+import LoginModal from './components/LoginModal';
 
-function App() {
+import { useState } from 'react';
+
+const App = () => {
+  const [openLogin, setOpenLogin] = useState(false);
+
+  const loginModalOpen = () => {
+    setOpenLogin(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <div className='login-btn-center'>
+        <Button onClick={loginModalOpen} value='Log In' />
+        {openLogin && (
+          <LoginModal setOpenLogin={setOpenLogin} openLogin={openLogin} />
+        )}
+      </div>
+    </main>
   );
-}
+};
 
 export default App;
