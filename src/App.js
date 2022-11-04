@@ -1,5 +1,4 @@
 import './styles.css';
-import Button from './components/Button';
 import LoginModal from './components/LoginModal';
 
 import { useState } from 'react';
@@ -14,7 +13,9 @@ const App = () => {
   return (
     <main>
       <div className='login-btn-center'>
-        <Button onClick={loginModalOpen} value='Log In' />
+        <button className='button login-btn' onClick={loginModalOpen}>
+          Log In
+        </button>
         {openLogin && (
           <LoginModal setOpenLogin={setOpenLogin} openLogin={openLogin} />
         )}
