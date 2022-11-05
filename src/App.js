@@ -13,7 +13,7 @@ const App = () => {
   return (
     <main>
       <div className='login-btn-center'>
-        <button className='button login-btn' onClick={loginModalOpen}>
+        <button className='button blue' onClick={loginModalOpen}>
           Log In
         </button>
         {openLogin && (

@@ -1,5 +1,3 @@
-import Button from '../components/Button';
-
 const CustomerInfo = () => {
   return (
     <div className='order-page'>
@@ -8,28 +6,34 @@ const CustomerInfo = () => {
       </div>
       <div className='customer-page'>
         <form className='customer-info-form'>
-          <span className='form-input'>
-            Phone: <input />
-          </span>
-          <span className='form-input'>
-            Name: <input />
-          </span>
-          <span className='form-input'>
-            Address: <input />
-          </span>
-          <span className='form-input'>
-            City: <input />
-          </span>
-          <span className='form-input'>
-            Street: <input />
-          </span>
-          <span className='form-input'>
-            Zip: <input />
-          </span>
+          <div className='form-input'>
+            <label>Phone:</label>
+            <input className='input' />
+          </div>
+          <div className='form-input'>
+            <label> Name: </label>
+            <input className='input' />
+          </div>
+          <div className='form-input'>
+            <label>Address:</label>
+            <input className='input' />
+          </div>
+          <div className='form-input'>
+            <label>City:</label>
+            <input className='input' />
+          </div>
+          <div className='form-input'>
+            <label>State: </label>
+            <input className='input' />
+          </div>
+          <div className='form-input'>
+            <label>Zip:</label>
+            <input className='input' />
+          </div>
         </form>
         <div className='order-method'>
-          <Button value={'Pick Up'} />
-          <Button value={'Delivery'} />
+          <button className='button blue'>Pick Up</button>
+          <button className='button blue'>Delivery</button>
         </div>
       </div>
     </div>

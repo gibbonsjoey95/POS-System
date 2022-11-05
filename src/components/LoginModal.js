@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from './Button';
 import OrderEntryModal from './OrderEntryModal';
 
 const LoginModal = ({ setOpenLogin }) => {
@@ -26,24 +25,78 @@ const LoginModal = ({ setOpenLogin }) => {
           autoFocus
         />
         <div className='row-1'>
-          <Button value={1} onClick={() => setLogin(login.concat(1))} />
-          <Button value={2} onClick={() => setLogin(login.concat(2))} />
-          <Button value={3} onClick={() => setLogin(login.concat(3))} />
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(1))}
+          >
+            1
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(2))}
+          >
+            2
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(3))}
+          >
+            3
+          </button>
         </div>
         <div className='row-2'>
-          <Button value={4} onClick={() => setLogin(login.concat(4))} />
-          <Button value={5} onClick={() => setLogin(login.concat(5))} />
-          <Button value={6} onClick={() => setLogin(login.concat(6))} />
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(4))}
+          >
+            4
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(5))}
+          >
+            5
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(6))}
+          >
+            6
+          </button>
         </div>
         <div className='row-3'>
-          <Button value={7} onClick={() => setLogin(login.concat(7))} />
-          <Button value={8} onClick={() => setLogin(login.concat(8))} />
-          <Button value={9} onClick={() => setLogin(login.concat(9))} />
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(7))}
+          >
+            7
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(8))}
+          >
+            8
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(9))}
+          >
+            9
+          </button>
         </div>
         <div className='row-4'>
-          <Button value={'Clear'} onClick={() => setLogin('')} />
-          <Button value={0} onClick={() => setLogin(login.concat(0))} />
-          <Button value={'Log In'} onClick={handleSubmit} type={'submit'} />
+          <button className='button blue' onClick={() => setLogin('')}>
+            Clear
+          </button>
+          <button
+            className='button blue'
+            onClick={() => setLogin(login.concat(0))}
+          >
+            0
+          </button>
+          <button className='button blue' onClick={handleSubmit}>
+            Log In
+          </button>
         </div>
       </form>
       {openOrderEntry && <OrderEntryModal setOpenLogin={setOpenLogin} />}
