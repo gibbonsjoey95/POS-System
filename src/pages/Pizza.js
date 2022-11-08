@@ -1,4 +1,13 @@
+import { useState } from 'react';
+import toppings from '../toppings';
+
 const Pizza = () => {
+  const [meatsActive, setMeatsActive] = useState(false);
+
+  const handleMeatClick = () => {
+    setMeatsActive((current) => !current);
+  };
+
   return (
     <div className='pizzas-page'>
       <div className='page-title'>
@@ -38,30 +47,21 @@ const Pizza = () => {
             <button className='button blue'>Extra</button>
             <button className='button blue'>Sauces</button>
             <button className='button blue'>Cheeses</button>
-            <button className='button blue'>Meats</button>
+            <button
+              className='button blue'
+              style={{
+                backgroundColor: meatsActive ? '#FF7F11' : '',
+              }}
+              onClick={handleMeatClick}
+            >
+              Meats
+            </button>
             <button className='button blue'>Veggies</button>
           </div>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
-          <button className='button blue'>topping</button>
+          {meatsActive &&
+            Object.keys(toppings.sauces).map((sauce) => (
+              <button className='button blue'>{sauce.name}</button>
+            ))}
         </div>
       </div>
     </div>

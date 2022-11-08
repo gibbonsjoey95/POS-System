@@ -131,6 +131,8 @@ input::-webkit-inner-spin-button {
   width: 100%;
   height: 60%;
   background-color: #edd29f;
+  overflow:scroll;
+  overflow-x:hidden;
 }
 
 .order-item {
@@ -159,6 +161,16 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.order-to-be-paid, .order-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 5px;
+}
+
+.order-to-be-paid p, .order-total p {
+  font-size: 1.4rem;
 }
 
 .order-page {
@@ -219,15 +231,15 @@ input::-webkit-inner-spin-button {
   align-items: flex-start;
 }
 
-.form-input label {
+.form-input {
   width: 100%;
   font-size: 2.5rem;
   display: block;
   text-align: left;
 }
 
-.input {
-  height: 20px;
+.customer-info-form input {
+  height: 40px;
   width: 300px;
 }
 

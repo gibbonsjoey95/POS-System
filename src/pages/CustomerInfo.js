@@ -1,4 +1,62 @@
+import { userInfo } from '../store';
+import { useAtom } from 'jotai';
+import { useState } from 'react';
+
 const CustomerInfo = () => {
+  const [data, setData] = useAtom(userInfo);
+  const [pickupActive, setPickupActive] = useState(false);
+  const [deliveryActive, setDeliveryActive] = useState(false);
+
+  const handleNameInput = (event) => {
+    setData((prevData) => ({
+      ...prevData,
+      name: event.target.value,
+    }));
+  };
+
+  const handleAddressInput = (event) => {
+    setData((prevData) => ({
+      ...prevData,
+      address: event.target.value,
+    }));
+  };
+
+  const handlePickupClick = () => {
+    pickupActive
+      ? setData((prevData) => ({
+          ...prevData,
+          orderType: '',
+        }))
+      : setData((prevData) => ({
+          ...prevData,
+          orderType: 'Pick Up',
+        }));
+
+    if (deliveryActive) {
+      setDeliveryActive(false);
+    }
+
+    setPickupActive((current) => !current);
+  };
+
+  const handleDeliveryClick = () => {
+    deliveryActive
+      ? setData((prevData) => ({
+          ...prevData,
+          orderType: '',
+        }))
+      : setData((prevData) => ({
+          ...prevData,
+          orderType: 'Delivery',
+        }));
+
+    if (pickupActive) {
+      setPickupActive(false);
+    }
+
+    setDeliveryActive((current) => !current);
+  };
+
   return (
     <div className='order-page'>
       <div className='page-title'>
@@ -6,34 +64,53 @@ const CustomerInfo = () => {
       </div>
       <div className='customer-page'>
         <form className='customer-info-form'>
-          <div className='form-input'>
-            <label>Phone:</label>
-            <input className='input' />
-          </div>
-          <div className='form-input'>
-            <label> Name: </label>
-            <input className='input' />
-          </div>
-          <div className='form-input'>
-            <label>Address:</label>
-            <input className='input' />
-          </div>
-          <div className='form-input'>
-            <label>City:</label>
-            <input className='input' />
-          </div>
-          <div className='form-input'>
-            <label>State: </label>
-            <input className='input' />
-          </div>
-          <div className='form-input'>
-            <label>Zip:</label>
-            <input className='input' />
-          </div>
+          <label className='form-input'>Phone:</label>
+          <input className='input' />
+
+          <label className='form-input'> Name: </label>
+          <input
+            className='input'
+            value={data.name}
+            onChange={handleNameInput}
+            type='text'
+          />
+
+          <label className='form-input'>Address:</label>
+          <input
+            className='input'
+            value={data.address}
+            onChange={handleAddressInput}
+            type='text'
+          />
+
+          <label className='form-input'>City:</label>
+          <input className='input' />
+
+          <label className='form-input'>State: </label>
+          <input className='input' />
+
+          <label className='form-input'>Zip:</label>
+          <input className='input' />
         </form>
         <div className='order-method'>
-          <button className='button blue'>Pick Up</button>
-          <button className='button blue'>Delivery</button>
+          <button
+            className='button blue'
+            style={{
+              backgroundColor: pickupActive ? '#FF7F11' : '',
+            }}
+            onClick={handlePickupClick}
+          >
+            Pick Up
+          </button>
+          <button
+            className='button blue'
+            style={{
+              backgroundColor: deliveryActive ? '#FF7F11' : '',
+            }}
+            onClick={handleDeliveryClick}
+          >
+            Delivery
+          </button>
         </div>
       </div>
     </div>

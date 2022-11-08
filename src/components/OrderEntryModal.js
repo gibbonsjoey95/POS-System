@@ -4,17 +4,15 @@ import EverythingElse from '../pages/EverythingElse';
 import Payments from '../pages/Payments';
 import Finish from '../pages/Finish';
 import { Routes, Route, Link } from 'react-router-dom';
+import OrderCustomerInfo from './OrderCustomerInfo';
+import OrderItem from './OrderItem';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   return (
     <div className='order-container'>
       <div className='order'>
-        <div className='order-info'>
-          <h3>Customer Name</h3>
-          <h3>Order Type</h3>
-          <h3>Customer Address</h3>
-        </div>
-        <div className='order-items'>
+        <OrderCustomerInfo />
+        {/* <div className='order-items'>
           <div className='order-item'>
             <p>(1) Large Original Crust</p>
             <ul>
@@ -23,15 +21,24 @@ const OrderEntryModal = ({ setOpenLogin }) => {
             </ul>
             <p className='order-item--cost'>$7.99</p>
           </div>
+        </div> */}
+        <div className='order-items'>
+          <OrderItem />
+          <OrderItem />
+          <OrderItem />
+          <OrderItem />
+          <OrderItem />
+          <OrderItem />
+          <OrderItem />
         </div>
         <div className=''>
           <div className='order-to-be-paid'>
-            <span>Paid</span>
-            <span>$0.00</span>
+            <p>Paid</p>
+            <p>$0.00</p>
           </div>
           <div className='order-total'>
-            <span>(0 Items)Total</span>
-            <span>$0.00</span>
+            <p>(0 Items)Total</p>
+            <p>$0.00</p>
           </div>
         </div>
         <div className='order-nav'>

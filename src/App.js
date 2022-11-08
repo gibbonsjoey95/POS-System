@@ -16,9 +16,7 @@ const App = () => {
         <button className='button blue' onClick={loginModalOpen}>
           Log In
         </button>
-        {openLogin && (
-          <LoginModal setOpenLogin={setOpenLogin} openLogin={openLogin} />
-        )}
+        {openLogin && <LoginModal setOpenLogin={setOpenLogin} />}
       </div>
     </main>
   );
