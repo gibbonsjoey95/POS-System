@@ -5,3 +5,14 @@ export const userInfo = atom({
   address: '',
   orderType: '',
 });
+
+export const crustSize = atom({
+  size: '',
+});
+
+export const toppingData = atom({
+  sauces: false,
+  cheeses: false,
+  meats: false,
+  veggies: false,
+});

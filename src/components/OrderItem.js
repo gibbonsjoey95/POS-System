@@ -1,7 +1,7 @@
-const OrderItem = () => {
+const OrderItem = ({ size }) => {
   return (
     <div className='order-item'>
-      <p>(1) Large Original Crust</p>
+      <p>(1) {size} Original Crust</p>
       <ul>
         <li>Pepperoni</li>
         <li>Onions</li>

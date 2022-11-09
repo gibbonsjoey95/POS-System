@@ -12,24 +12,8 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     <div className='order-container'>
       <div className='order'>
         <OrderCustomerInfo />
-        {/* <div className='order-items'>
-          <div className='order-item'>
-            <p>(1) Large Original Crust</p>
-            <ul>
-              <li>Pepperoni</li>
-              <li>Onions</li>
-            </ul>
-            <p className='order-item--cost'>$7.99</p>
-          </div>
-        </div> */}
         <div className='order-items'>
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
+          <OrderItem size='Large' />
         </div>
         <div className=''>
           <div className='order-to-be-paid'>
