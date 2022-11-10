@@ -3,9 +3,68 @@ import { toppingData } from '../store';
 import { useAtom } from 'jotai';
 import Toppings from '../components/Toppings';
 import PizzaButton from '../components/PizzaButton';
+import { useState } from 'react';
 
 const Pizza = () => {
   const [topping, setTopping] = useAtom(toppingData);
+  const [sizeOn, setSizeOn] = useState(pizza.sizes);
+  const [crustOn, setCrustOn] = useState(pizza.crusts);
+  const [sauceOn, setSauceOn] = useState(pizza.toppings.sauces);
+  const [cheeseOn, setCheeseOn] = useState(pizza.toppings.cheeses);
+  const [meatOn, setMeatOn] = useState(pizza.toppings.meats);
+  const [veggieOn, setVeggieOn] = useState(pizza.toppings.veggies);
+
+  const toggleSize = (id) => {
+    setSizeOn((prevSizeOn) => {
+      return prevSizeOn.map((size) => {
+        return size.id === id ? { ...size, active: !size.active } : size;
+      });
+    });
+  };
+
+  const toggleCrust = (id) => {
+    setCrustOn((prevCrustOn) => {
+      return prevCrustOn.map((crust) => {
+        return crust.id === id ? { ...crust, active: !crust.active } : crust;
+      });
+    });
+  };
+
+  const toggleSauce = (id) => {
+    setSauceOn((prevSauceOn) => {
+      return prevSauceOn.map((sauce) => {
+        return sauce.id === id ? { ...sauce, active: !sauce.active } : sauce;
+      });
+    });
+  };
+
+  const toggleCheese = (id) => {
+    setCheeseOn((prevCheeseOn) => {
+      return prevCheeseOn.map((cheese) => {
+        return cheese.id === id
+          ? { ...cheese, active: !cheese.active }
+          : cheese;
+      });
+    });
+  };
+
+  const toggleMeat = (id) => {
+    setMeatOn((prevMeatOn) => {
+      return prevMeatOn.map((meat) => {
+        return meat.id === id ? { ...meat, active: !meat.active } : meat;
+      });
+    });
+  };
+
+  const toggleVeggie = (id) => {
+    setVeggieOn((prevVeggieOn) => {
+      return prevVeggieOn.map((veggie) => {
+        return veggie.id === id
+          ? { ...veggie, active: !veggie.active }
+          : veggie;
+      });
+    });
+  };
 
   const handleSauceClick = () => {
     setTopping((prevTopping) => ({
@@ -43,57 +102,65 @@ const Pizza = () => {
     }));
   };
 
-  const pizzaSize = pizza.sizes.map((size) => (
-    <PizzaButton key={size.id} active={size.active} pizzaOption={size.name} />
+  const pizzaSize = sizeOn.map((size) => (
+    <PizzaButton
+      key={size.id}
+      active={size.active}
+      pizzaOption={size.name}
+      id={size.id}
+      toggle={toggleSize}
+    />
   ));
 
-  const pizzaCrust = pizza.crusts.map((crust) => (
+  const pizzaCrust = crustOn.map((crust) => (
     <PizzaButton
       key={crust.id}
       active={crust.active}
       pizzaOption={crust.name}
+      id={crust.id}
+      toggle={toggleCrust}
     />
   ));
 
-  const pizzaSauceTopping = Object.values(pizza.toppings.sauces).map(
-    (topping) => (
-      <Toppings
-        key={topping.id}
-        active={topping.active}
-        toppingName={topping.name}
-      />
-    )
-  );
+  const pizzaSauceTopping = sauceOn.map((topping) => (
+    <Toppings
+      key={topping.id}
+      active={topping.active}
+      toppingName={topping.name}
+      id={topping.id}
+      toggle={toggleSauce}
+    />
+  ));
 
-  const pizzaCheeseTopping = Object.values(pizza.toppings.cheeses).map(
-    (topping) => (
-      <Toppings
-        key={topping.id}
-        active={topping.active}
-        toppingName={topping.name}
-      />
-    )
-  );
+  const pizzaCheeseTopping = cheeseOn.map((topping) => (
+    <Toppings
+      key={topping.id}
+      active={topping.active}
+      toppingName={topping.name}
+      id={topping.id}
+      toggle={toggleCheese}
+    />
+  ));
 
-  const pizzaMeatTopping = Object.values(pizza.toppings.meats).map(
-    (topping) => (
-      <Toppings
-        key={topping.id}
-        active={topping.active}
-        toppingName={topping.name}
-      />
-    )
-  );
+  const pizzaMeatTopping = meatOn.map((topping) => (
+    <Toppings
+      key={topping.id}
+      active={topping.active}
+      toppingName={topping.name}
+      id={topping.id}
+      toggle={toggleMeat}
+    />
+  ));
 
-  const pizzaVeggieTopping = Object.values(pizza.toppings.veggies).map(
-    (topping) => (
-      <Toppings
-        key={topping.id}
-        active={topping.active}
-        toppingName={topping.name}
-      />
-    )
-  );
+  const pizzaVeggieTopping = veggieOn.map((topping) => (
+    <Toppings
+      key={topping.id}
+      active={topping.active}
+      toppingName={topping.name}
+      id={topping.id}
+      toggle={toggleVeggie}
+    />
+  ));
 
   return (
     <div className='pizzas-page'>

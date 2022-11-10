@@ -12,12 +12,12 @@ const sizes = [
   {
     name: 'Medium',
     id: 3,
-    active: true,
+    active: false,
   },
   {
     name: 'Small',
     id: 4,
-    active: true,
+    active: false,
   },
 ];
 
@@ -35,7 +35,7 @@ const crusts = [
   {
     name: 'Pan',
     id: 3,
-    active: true,
+    active: false,
   },
 ];
 
@@ -54,7 +54,7 @@ const toppings = {
     {
       name: 'Honey BBQ',
       id: 3,
-      active: true,
+      active: false,
     },
     {
       name: 'Hot Buffalo',
@@ -69,33 +69,37 @@ const toppings = {
   ],
   cheeses: [
     {
-      name: 'Cheddar',
+      name: 'Pizza Cheese',
       id: 1,
-      active: false,
     },
     {
-      name: 'Feta',
+      name: 'Cheddar',
       id: 2,
       active: false,
     },
     {
-      name: 'Shredded Parmesean',
+      name: 'Feta',
       id: 3,
       active: false,
     },
     {
-      name: 'American',
+      name: 'Shredded Parmesean',
       id: 4,
       active: false,
     },
     {
-      name: 'Shredded Provolone',
+      name: 'American',
       id: 5,
-      active: true,
+      active: false,
+    },
+    {
+      name: 'Shredded Provolone',
+      id: 6,
+      active: false,
     },
     {
       name: 'Sliced Provolone',
-      id: 6,
+      id: 7,
       active: false,
     },
   ],
@@ -123,7 +127,7 @@ const toppings = {
     {
       name: 'Beef',
       id: 5,
-      active: true,
+      active: false,
     },
     {
       name: 'Bacon',
@@ -165,12 +169,12 @@ const toppings = {
     {
       name: 'Pineapple',
       id: 5,
-      active: true,
+      active: false,
     },
     {
       name: 'Tomatoes',
       id: 6,
-      active: true,
+      active: false,
     },
     {
       name: 'Red Peppers',
