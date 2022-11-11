@@ -6,6 +6,25 @@ export const userInfo = atom({
   orderType: '',
 });
 
-export const crustSize = atom({
-  size: '',
-});
+// export const toppingType = {
+//   sauces: {
+//     name: 'Sauces',
+//     active: true,
+//     id: 1,
+//   },
+//   cheeses: {
+//     name: 'Cheeses',
+//     active: false,
+//     id: 2,
+//   },
+//   meats: {
+//     name: 'Meats',
+//     active: false,
+//     id: 3,
+//   },
+//   veggies: {
+//     name: 'Veggies',
+//     active: false,
+//     id: 4,
+//   },
+// };

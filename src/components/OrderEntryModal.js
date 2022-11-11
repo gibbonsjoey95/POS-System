@@ -1,7 +1,7 @@
 import CustomerInfo from '../pages/CustomerInfo';
-import Pizza from '../pages/Pizza';
+import PizzaPage from '../pages/PizzaPage';
 import EverythingElse from '../pages/EverythingElse';
-import Payments from '../pages/Payments';
+import PaymentsPage from '../pages/PaymentsPage';
 import Finish from '../pages/Finish';
 import { Routes, Route, Link } from 'react-router-dom';
 import OrderCustomerInfo from './OrderCustomerInfo';
@@ -33,9 +33,9 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       </div>
       <Routes>
         <Route path='/' element={<CustomerInfo />} />
-        <Route path='/pizzas' element={<Pizza />} />
+        <Route path='/pizzas' element={<PizzaPage />} />
         <Route path='/everything-else' element={<EverythingElse />} />
-        <Route path='/payments' element={<Payments />} />
+        <Route path='/payments' element={<PaymentsPage />} />
         <Route path='/finish' element={<Finish />} />
       </Routes>
       <div className='order-task-list'>
