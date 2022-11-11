@@ -1,14 +1,15 @@
 import pizza from '../pizza';
-import { toppingData } from '../store';
-import { useAtom } from 'jotai';
+// import { toppingData } from '../store';
+// import { useAtom } from 'jotai';
 import Toppings from '../components/Toppings';
 import PizzaButton from '../components/PizzaButton';
 import { useState } from 'react';
 
 const Pizza = () => {
-  const [topping, setTopping] = useAtom(toppingData);
+  // const [topping, setTopping] = useAtom(toppingData);
   const [sizeOn, setSizeOn] = useState(pizza.sizes);
   const [crustOn, setCrustOn] = useState(pizza.crusts);
+  const [toppingType, setToppingType] = useState(pizza.toppingType);
   const [sauceOn, setSauceOn] = useState(pizza.toppings.sauces);
   const [cheeseOn, setCheeseOn] = useState(pizza.toppings.cheeses);
   const [meatOn, setMeatOn] = useState(pizza.toppings.meats);
@@ -26,6 +27,14 @@ const Pizza = () => {
     setCrustOn((prevCrustOn) => {
       return prevCrustOn.map((crust) => {
         return crust.id === id ? { ...crust, active: !crust.active } : crust;
+      });
+    });
+  };
+
+  const toggleToppingType = (id) => {
+    setToppingType((prevTopping) => {
+      return Object.values(prevTopping).map((type) => {
+        return type.id === id ? { ...type, active: !type.active } : type;
       });
     });
   };
@@ -66,41 +75,41 @@ const Pizza = () => {
     });
   };
 
-  const handleSauceClick = () => {
-    setTopping((prevTopping) => ({
-      sauces: !prevTopping.sauces,
-      cheeses: false,
-      meats: false,
-      veggies: false,
-    }));
-  };
+  // const handleSauceClick = () => {
+  //   setTopping((prevTopping) => ({
+  //     sauces: !prevTopping.sauces,
+  //     cheeses: false,
+  //     meats: false,
+  //     veggies: false,
+  //   }));
+  // };
 
-  const handleCheesesClick = () => {
-    setTopping((prevTopping) => ({
-      sauces: false,
-      cheeses: !prevTopping.cheeses,
-      meats: false,
-      veggies: false,
-    }));
-  };
+  // const handleCheesesClick = () => {
+  //   setTopping((prevTopping) => ({
+  //     sauces: false,
+  //     cheeses: !prevTopping.cheeses,
+  //     meats: false,
+  //     veggies: false,
+  //   }));
+  // };
 
-  const handleMeatClick = () => {
-    setTopping((prevTopping) => ({
-      sauces: false,
-      cheeses: false,
-      meats: !prevTopping.meats,
-      veggies: false,
-    }));
-  };
+  // const handleMeatClick = () => {
+  //   setTopping((prevTopping) => ({
+  //     sauces: false,
+  //     cheeses: false,
+  //     meats: !prevTopping.meats,
+  //     veggies: false,
+  //   }));
+  // };
 
-  const handleVeggiesClick = () => {
-    setTopping((prevTopping) => ({
-      sauces: false,
-      cheeses: false,
-      meats: false,
-      veggies: !prevTopping.veggies,
-    }));
-  };
+  // const handleVeggiesClick = () => {
+  //   setTopping((prevTopping) => ({
+  //     sauces: false,
+  //     cheeses: false,
+  //     meats: false,
+  //     veggies: !prevTopping.veggies,
+  //   }));
+  // };
 
   const pizzaSize = sizeOn.map((size) => (
     <PizzaButton
@@ -121,6 +130,17 @@ const Pizza = () => {
       toggle={toggleCrust}
     />
   ));
+
+  const pizzaToppingType = Object.values(toppingType).map((type) => (
+    <PizzaButton
+      key={type.id}
+      active={type.active}
+      pizzaOption={type.name}
+      id={type.id}
+      toggle={toggleToppingType}
+    />
+  ));
+  console.log('rendered', pizzaToppingType);
 
   const pizzaSauceTopping = sauceOn.map((topping) => (
     <Toppings
@@ -162,6 +182,8 @@ const Pizza = () => {
     />
   ));
 
+  console.log(pizza.toppingType.sauces);
+
   return (
     <div className='pizzas-page'>
       <div className='page-title'>
@@ -190,48 +212,13 @@ const Pizza = () => {
           <div>
             <button className='button blue'>Light</button>
             <button className='button blue'>Extra</button>
-            <button
-              className='button blue'
-              style={{
-                backgroundColor: topping.sauces ? '#FF7F11' : '',
-              }}
-              onClick={handleSauceClick}
-            >
-              Sauces
-            </button>
-            <button
-              className='button blue'
-              style={{
-                backgroundColor: topping.cheeses ? '#FF7F11' : '',
-              }}
-              onClick={handleCheesesClick}
-            >
-              Cheeses
-            </button>
-            <button
-              className='button blue'
-              style={{
-                backgroundColor: topping.meats ? '#FF7F11' : '',
-              }}
-              onClick={handleMeatClick}
-            >
-              Meats
-            </button>
-            <button
-              className='button blue'
-              style={{
-                backgroundColor: topping.veggies ? '#FF7F11' : '',
-              }}
-              onClick={handleVeggiesClick}
-            >
-              Veggies
-            </button>
+            {pizzaToppingType}
           </div>
           <div className='toppings'>
-            {topping.sauces && pizzaSauceTopping}
-            {topping.cheeses && pizzaCheeseTopping}
-            {topping.meats && pizzaMeatTopping}
-            {topping.veggies && pizzaVeggieTopping}
+            {pizza.toppingType.sauces.active && pizzaSauceTopping}
+            {pizza.toppingType.cheeses.active && pizzaCheeseTopping}
+            {pizza.toppingType.meats.active && pizzaMeatTopping}
+            {pizza.toppingType.veggies.active && pizzaVeggieTopping}
           </div>
         </div>
       </div>

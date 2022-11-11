@@ -9,10 +9,3 @@ export const userInfo = atom({
 export const crustSize = atom({
   size: '',
 });
-
-export const toppingData = atom({
-  sauces: false,
-  cheeses: false,
-  meats: false,
-  veggies: false,
-});

@@ -39,6 +39,52 @@ const crusts = [
   },
 ];
 
+const toppingType = {
+  sauces: {
+    name: 'Sauces',
+    active: true,
+    id: 1,
+  },
+
+  cheeses: {
+    name: 'Cheeses',
+    active: false,
+    id: 2,
+  },
+
+  meats: {
+    name: 'Meats',
+    active: false,
+    id: 3,
+  },
+
+  veggies: {
+    name: 'Veggies',
+    active: false,
+    id: 4,
+  },
+};
+// {
+//   name: 'Sauces',
+//   active: true,
+//   id: 1,
+// },
+
+// {
+//   name: 'Cheeses',
+//   active: false,
+//   id: 2,
+// },
+// {
+//   name: 'Meats',
+//   active: false,
+//   id: 3,
+// },
+// {
+//   name: 'Veggies',
+//   active: false,
+//   id: 4,
+// },
 const toppings = {
   sauces: [
     {
@@ -199,6 +245,6 @@ const toppings = {
   ],
 };
 
-const pizza = { sizes, crusts, toppings };
+const pizza = { sizes, crusts, toppingType, toppings };
 
 export default pizza;
