@@ -1,4 +1,4 @@
-const Payments = () => {
+const PaymentsPage = () => {
   return (
     <div className='order-page'>
       <div className='page-title'>
@@ -8,4 +8,4 @@ const Payments = () => {
   );
 };
 
-export default Payments;
+export default PaymentsPage;

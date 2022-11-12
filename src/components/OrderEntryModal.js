@@ -1,19 +1,28 @@
-import CustomerInfo from '../pages/CustomerInfo';
+import CustomerInfoPage from '../pages/CustomerInfoPage';
 import PizzaPage from '../pages/PizzaPage';
-import EverythingElse from '../pages/EverythingElse';
+import EverythingElsePage from '../pages/EverythingElsePage';
 import PaymentsPage from '../pages/PaymentsPage';
-import Finish from '../pages/Finish';
-import { Routes, Route, Link } from 'react-router-dom';
+import FinishPage from '../pages/FinishPage';
+import { Routes, Route } from 'react-router-dom';
 import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
+import OrderTaskList from './OrderTaskList';
+import pizza from '../pizza';
+import { useState } from 'react';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
+  const [size, setSize] = useState(pizza.sizes);
+
+  let pizzaSize = size.map((size) => console.log(size.name));
+
+  console.log(pizzaSize);
+
   return (
     <div className='order-container'>
       <div className='order'>
         <OrderCustomerInfo />
         <div className='order-items'>
-          <OrderItem size='Large' />
+          <OrderItem size={size[1].name} />
         </div>
         <div className=''>
           <div className='order-to-be-paid'>
@@ -32,11 +41,11 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         </div>
       </div>
       <Routes>
-        <Route path='/' element={<CustomerInfo />} />
-        <Route path='/pizzas' element={<PizzaPage />} />
-        <Route path='/everything-else' element={<EverythingElse />} />
-        <Route path='/payments' element={<PaymentsPage />} />
-        <Route path='/finish' element={<Finish />} />
+        <Route path='/' element={<CustomerInfoPage />} />
+        <Route path='/pizzas-page' element={<PizzaPage />} />
+        <Route path='/everything-else-page' element={<EverythingElsePage />} />
+        <Route path='/payments-page' element={<PaymentsPage />} />
+        <Route path='/finish-page' element={<FinishPage />} />
       </Routes>
       <div className='order-task-list'>
         <div
@@ -46,37 +55,11 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           Exit Order
         </div>
 
-        <div className='style'>
-          <Link className='order-task-link' to='/'>
-            <div className='order-task-container button blue'>Customer</div>
-          </Link>
-        </div>
-
-        <div className='style'>
-          <Link className='order-task-link' to='pizzas'>
-            <div className='order-task-container button blue'>Pizzas</div>
-          </Link>
-        </div>
-
-        <div className='style'>
-          <Link className='order-task-link' to='everything-else'>
-            <div className='order-task-container button blue'>
-              Everything else
-            </div>
-          </Link>
-        </div>
-
-        <div className='style'>
-          <Link className='order-task-link' to='payments'>
-            <div className='order-task-container button blue'>Payments</div>
-          </Link>
-        </div>
-
-        <div className='style'>
-          <Link className='order-task-link' to='finish'>
-            <div className='order-task-container button blue'>Finish</div>
-          </Link>
-        </div>
+        <OrderTaskList linkTo='/' name='Customer' />
+        <OrderTaskList linkTo='pizzas-page' name='Pizzas' />
+        <OrderTaskList linkTo='everything-else-page' name='Everything else' />
+        <OrderTaskList linkTo='payments-page' name='Payments' />
+        <OrderTaskList linkTo='finish-page' name='Finish' />
       </div>
     </div>
   );

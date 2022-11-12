@@ -1,4 +1,4 @@
-const EverythingElse = () => {
+const EverythingElsePage = () => {
   return (
     <div className='order-page'>
       <div className='page-title'>
@@ -8,4 +8,4 @@ const EverythingElse = () => {
   );
 };
 
-export default EverythingElse;
+export default EverythingElsePage;

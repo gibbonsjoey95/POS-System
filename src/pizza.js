@@ -42,7 +42,7 @@ const crusts = [
 const toppingType = [
   {
     name: 'Sauces',
-    active: true,
+    active: false,
     id: 1,
   },
 

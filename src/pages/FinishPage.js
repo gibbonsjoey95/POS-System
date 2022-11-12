@@ -1,4 +1,4 @@
-const Finish = () => {
+const FinishPage = () => {
   return (
     <div className='order-page'>
       <div className='page-title'>
@@ -8,4 +8,4 @@ const Finish = () => {
   );
 };
 
-export default Finish;
+export default FinishPage;

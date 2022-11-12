@@ -2,7 +2,7 @@ import { userInfo } from '../store';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 
-const CustomerInfo = () => {
+const CustomerInfoPage = () => {
   const [data, setData] = useAtom(userInfo);
   const [pickupActive, setPickupActive] = useState(false);
   const [deliveryActive, setDeliveryActive] = useState(false);
@@ -117,4 +117,4 @@ const CustomerInfo = () => {
   );
 };
 
-export default CustomerInfo;
+export default CustomerInfoPage;
