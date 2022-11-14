@@ -3,34 +3,61 @@ import PizzaPage from '../pages/PizzaPage';
 import EverythingElsePage from '../pages/EverythingElsePage';
 import PaymentsPage from '../pages/PaymentsPage';
 import FinishPage from '../pages/FinishPage';
+import PageTitle from './PageTitle';
 import { Routes, Route } from 'react-router-dom';
 import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
 import OrderTaskList from './OrderTaskList';
 import pizza from '../pizza';
 import { useAtom } from 'jotai';
-import { items } from '../store';
+import { items, titlePageInfo, links } from '../store';
+import { useState } from 'react';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   const [item, setItem] = useAtom(items);
+  const [linkTo, setLinkTo] = useAtom(links);
+  const [title, setTitle] = useState('');
+
+  const togglePageLink = (id) => {
+    setLinkTo((prevLinkTo) => {
+      return prevLinkTo.map((link) => {
+        return link.id === id
+          ? { ...link, active: !link.active }
+          : { ...link, active: false };
+      });
+    });
+    linkTo.map((link) => link.active && setTitle(link.name));
+  };
+
+  let itemsInOrder = item.map((items) => (
+    <OrderItem
+      key={items.id}
+      size={items.size}
+      crust={items.crust}
+      price={items.price}
+      toppings={items.topping.map((top) => (
+        <li key={top.id}>{top.name}</li>
+      ))}
+    />
+  ));
+
+  let pageLink = linkTo.map((link) => (
+    <OrderTaskList
+      key={link.id}
+      linkTo={link.linkTo}
+      name={link.name}
+      active={link.active}
+      id={link.id}
+      toggle={togglePageLink}
+    />
+  ));
 
   return (
     <div className='order-container'>
       <div className='order'>
         <OrderCustomerInfo />
         <div className='order-items'>
-          <ul>
-            {item.map((items) => (
-              <OrderItem
-                key={items.id}
-                size={items.size}
-                crust={items.crust}
-                toppings={items.topping.map((top) => (
-                  <li key={top.id}>{top.name}</li>
-                ))}
-              />
-            ))}
-          </ul>
+          <ul>{itemsInOrder}</ul>
         </div>
         <div className=''>
           <div className='order-to-be-paid'>
@@ -48,13 +75,19 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           <button className='button blue'>Tax and Total</button>
         </div>
       </div>
-      <Routes>
-        <Route path='/' element={<CustomerInfoPage />} />
-        <Route path='/pizzas-page' element={<PizzaPage />} />
-        <Route path='/everything-else-page' element={<EverythingElsePage />} />
-        <Route path='/payments-page' element={<PaymentsPage />} />
-        <Route path='/finish-page' element={<FinishPage />} />
-      </Routes>
+      <div className='page'>
+        <PageTitle pageName={title} />
+        <Routes>
+          <Route path='/' element={<CustomerInfoPage />} />
+          <Route path='/pizzas-page' element={<PizzaPage />} />
+          <Route
+            path='/everything-else-page'
+            element={<EverythingElsePage />}
+          />
+          <Route path='/payments-page' element={<PaymentsPage />} />
+          <Route path='/finish-page' element={<FinishPage />} />
+        </Routes>
+      </div>
       <div className='order-task-list'>
         <div
           className='order-task-container button red'
@@ -62,12 +95,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         >
           Exit Order
         </div>
-
-        <OrderTaskList linkTo='/' name='Customer' />
-        <OrderTaskList linkTo='pizzas-page' name='Pizzas' />
-        <OrderTaskList linkTo='everything-else-page' name='Everything else' />
-        <OrderTaskList linkTo='payments-page' name='Payments' />
-        <OrderTaskList linkTo='finish-page' name='Finish' />
+        {pageLink}
       </div>
     </div>
   );

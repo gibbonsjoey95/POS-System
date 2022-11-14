@@ -110,18 +110,6 @@ const PizzaPage = () => {
 
   return (
     <div className='pizzas-page'>
-      <div className='page-title'>
-        <h1>Pizzas</h1>
-        <div className='pizzas--title-btn'>
-          <button className='button blue'>New Pizza</button>
-          <button className='button blue'>Minus One</button>
-          <button className='button blue'>
-            Qty <input type='number' />
-          </button>
-          <button className='button blue'>Plus One</button>
-          <button className='button red'>Delete Pizza</button>
-        </div>
-      </div>
       <div>
         <h2 className='section-title'>Size</h2>
         <div className='section'>{pizzaSize}</div>

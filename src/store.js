@@ -6,11 +6,45 @@ export const userInfo = atom({
   orderType: '',
 });
 
+export const links = atom([
+  {
+    id: 1,
+    name: 'Customer',
+    linkTo: '/',
+    active: true,
+  },
+  {
+    id: 2,
+    name: 'Pizzas',
+    linkTo: 'pizzas-page',
+    active: false,
+  },
+  {
+    id: 3,
+    name: 'Everything else',
+    linkTo: 'everything-else-page',
+    active: false,
+  },
+  {
+    id: 4,
+    name: 'Payments',
+    linkTo: 'payments-page',
+    active: false,
+  },
+  {
+    id: 5,
+    name: 'Finish',
+    linkTo: 'finish-page',
+    active: false,
+  },
+]);
+
 export const items = atom([
   {
     id: 1,
     size: 'Large',
     crust: 'Thin',
+    price: 7.99,
     topping: [
       {
         id: 1,
@@ -30,6 +64,7 @@ export const items = atom([
     id: 2,
     size: 'Medium',
     crust: 'Original',
+    price: 5.99,
     topping: [
       {
         id: 1,

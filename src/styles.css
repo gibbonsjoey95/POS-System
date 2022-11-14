@@ -33,17 +33,6 @@
   background-color: #0a6ba2;
 }
 
-.page-title {
-  height: auto;
-  width: 100%;
-  border-radius: 10px ;
-  background-color: #0f2673;
-  color: #fff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .section-title {
   height: auto;
   width: 100%;
@@ -55,7 +44,7 @@
   margin-top: 5px;
 }
 
-.page-title h1, .section-title h2 {
+.title-bar h1, .section-title h2 {
   font-size: 3rem;
 }
 
@@ -173,6 +162,12 @@ input::-webkit-inner-spin-button {
   font-size: 1.4rem;
 }
 
+.page {
+  height: auto;
+  width: auto;
+  margin: 0 auto;
+}
+
 .order-page {
   width: 800px;
   height: 90%;
@@ -180,6 +175,32 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
   background-color: #edd29f;
 }
+
+.title-bar {
+  height: auto;
+  width: 100%;
+  border-radius: 10px ;
+  background-color: #0f2673;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title--title-btn {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+}
+
+.title--title-btn input {
+  width: 65%;
+  height: 50%;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+
 
 .order-task-list {
   height: 100%;
@@ -256,18 +277,7 @@ input::-webkit-inner-spin-button {
   border-radius: 10px;
 }
 
-.pizzas--title-btn {
-  margin: 5px 0;
-  display: flex;
-  align-items: center;
-}
 
-.pizzas--title-btn input {
-  width: 80%;
-  height: 50%;
-  font-size: 2.5rem;
-  text-align: center;
-}
 
 .toppings {
   margin-top: 5px;
