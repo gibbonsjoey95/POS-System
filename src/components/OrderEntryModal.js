@@ -8,21 +8,29 @@ import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
 import OrderTaskList from './OrderTaskList';
 import pizza from '../pizza';
-import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { items } from '../store';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
-  const [size, setSize] = useState(pizza.sizes);
-
-  let pizzaSize = size.map((size) => console.log(size.name));
-
-  console.log(pizzaSize);
+  const [item, setItem] = useAtom(items);
 
   return (
     <div className='order-container'>
       <div className='order'>
         <OrderCustomerInfo />
         <div className='order-items'>
-          <OrderItem size={size[1].name} />
+          <ul>
+            {item.map((items) => (
+              <OrderItem
+                key={items.id}
+                size={items.size}
+                crust={items.crust}
+                toppings={items.topping.map((top) => (
+                  <li key={top.id}>{top.name}</li>
+                ))}
+              />
+            ))}
+          </ul>
         </div>
         <div className=''>
           <div className='order-to-be-paid'>

@@ -2,7 +2,7 @@ const sizes = [
   {
     name: 'X-tra Large',
     id: 1,
-    active: false,
+    active: true,
   },
   {
     name: 'Large',
@@ -62,37 +62,6 @@ const toppingType = [
     id: 4,
   },
 ];
-
-// {
-//   sauces: [
-//     {
-//       name: 'Sauces',
-//       active: true,
-//       id: 1,
-//     },
-//   ],
-//   cheeses: [
-//     {
-//       name: 'Cheeses',
-//       active: false,
-//       id: 2,
-//     },
-//   ],
-//   meats: [
-//     {
-//       name: 'Meats',
-//       active: false,
-//       id: 3,
-//     },
-//   ],
-//   veggies: [
-//     {
-//       name: 'Veggies',
-//       active: false,
-//       id: 4,
-//     },
-//   ],
-// }
 
 const toppings = {
   sauces: [
