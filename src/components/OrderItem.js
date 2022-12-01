@@ -1,6 +1,18 @@
-const OrderItem = ({ size, crust, toppings, price }) => {
+const OrderItem = ({
+  active,
+  onItemClick,
+  id,
+  size,
+  crust,
+  toppings,
+  price,
+}) => {
+  const styles = {
+    backgroundColor: active ? '#FF7F11' : '',
+  };
+
   return (
-    <div className='order-item'>
+    <div className='order-item' style={styles} onClick={() => onItemClick(id)}>
       <p>
         (1) {size} {crust} Crust
       </p>

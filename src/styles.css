@@ -130,6 +130,7 @@ input::-webkit-inner-spin-button {
   font-size: 2rem;
   background-color: #f2e4c9;
   border: 3px solid #8a7041;
+  cursor: pointer;
 }
 
 .order-item p {

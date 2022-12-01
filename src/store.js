@@ -59,6 +59,7 @@ export const items = atom([
         name: 'Beef',
       },
     ],
+    active: false,
   },
   {
     id: 2,
@@ -75,5 +76,6 @@ export const items = atom([
         name: 'Pineapple',
       },
     ],
+    active: false,
   },
 ]);

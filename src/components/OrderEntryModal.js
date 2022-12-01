@@ -8,10 +8,9 @@ import { Routes, Route } from 'react-router-dom';
 import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
 import OrderTaskList from './OrderTaskList';
-import pizza from '../pizza';
 import { useAtom } from 'jotai';
-import { items, titlePageInfo, links } from '../store';
-import { useState } from 'react';
+import { items, links } from '../store';
+import { useEffect, useState } from 'react';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   const [item, setItem] = useAtom(items);
@@ -26,20 +25,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           : { ...link, active: false };
       });
     });
-    linkTo.map((link) => link.active && setTitle(link.name));
   };
-
-  let itemsInOrder = item.map((items) => (
-    <OrderItem
-      key={items.id}
-      size={items.size}
-      crust={items.crust}
-      price={items.price}
-      toppings={items.topping.map((top) => (
-        <li key={top.id}>{top.name}</li>
-      ))}
-    />
-  ));
 
   let pageLink = linkTo.map((link) => (
     <OrderTaskList
@@ -49,6 +35,39 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       active={link.active}
       id={link.id}
       toggle={togglePageLink}
+    />
+  ));
+
+  const handleItemClick = (id) => {
+    setItem((prevItem) => {
+      return prevItem.map((item) => {
+        return item.id === id
+          ? { ...item, active: !item.active }
+          : { ...item, active: false };
+      });
+    });
+  };
+
+  useEffect(() => {
+    item.map((item) => item.active);
+  }, [item]);
+
+  useEffect(() => {
+    linkTo.map((link) => link.active && setTitle(link.name));
+  }, [linkTo]);
+
+  let itemsInOrder = item.map((items) => (
+    <OrderItem
+      active={items.active}
+      onItemClick={handleItemClick}
+      key={items.id}
+      id={items.id}
+      size={items.size}
+      crust={items.crust}
+      price={items.price}
+      toppings={items.topping.map((top) => (
+        <li key={top.id}>{top.name}</li>
+      ))}
     />
   ));
 

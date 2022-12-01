@@ -2,7 +2,7 @@ const sizes = [
   {
     name: 'X-tra Large',
     id: 1,
-    active: true,
+    active: false,
   },
   {
     name: 'Large',
@@ -68,7 +68,7 @@ const toppings = {
     {
       name: 'Original Sauce',
       id: 1,
-      active: false,
+      active: true,
     },
     {
       name: 'Garlic Sauce',
@@ -95,6 +95,7 @@ const toppings = {
     {
       name: 'Pizza Cheese',
       id: 1,
+      active: true,
     },
     {
       name: 'Cheddar',
