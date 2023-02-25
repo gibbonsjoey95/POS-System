@@ -12,11 +12,14 @@ const App = () => {
 
   return (
     <main>
-      <div className='login-btn-center'>
-        <button className='button blue' onClick={loginModalOpen}>
-          Log In
-        </button>
-        {openLogin && <LoginModal setOpenLogin={setOpenLogin} />}
+      <div className='login--page'>
+        <div className='login-btn-center'>
+          <h1 className='login--welcome'>Welcome to Pizza Pay</h1>
+          <button className='button blue' onClick={loginModalOpen}>
+            Log In
+          </button>
+          {openLogin && <LoginModal setOpenLogin={setOpenLogin} />}
+        </div>
       </div>
     </main>
   );
