@@ -1,6 +1,6 @@
 import CustomerInfoPage from '../pages/CustomerInfoPage';
 import PizzaPage from '../pages/PizzaPage';
-import EverythingElsePage from '../pages/EverythingElsePage';
+// import EverythingElsePage from '../pages/EverythingElsePage';
 import PaymentsPage from '../pages/PaymentsPage';
 import FinishPage from '../pages/FinishPage';
 import PageTitle from './PageTitle';
@@ -99,10 +99,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         <Routes>
           <Route path='/' element={<CustomerInfoPage />} />
           <Route path='/pizzas-page' element={<PizzaPage />} />
-          <Route
-            path='/everything-else-page'
-            element={<EverythingElsePage />}
-          />
           <Route path='/payments-page' element={<PaymentsPage />} />
           <Route path='/finish-page' element={<FinishPage />} />
         </Routes>

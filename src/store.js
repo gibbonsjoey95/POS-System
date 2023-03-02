@@ -21,18 +21,12 @@ export const links = atom([
   },
   {
     id: 3,
-    name: 'Everything else',
-    linkTo: 'everything-else-page',
-    active: false,
-  },
-  {
-    id: 4,
     name: 'Payments',
     linkTo: 'payments-page',
     active: false,
   },
   {
-    id: 5,
+    id: 4,
     name: 'Finish',
     linkTo: 'finish-page',
     active: false,
