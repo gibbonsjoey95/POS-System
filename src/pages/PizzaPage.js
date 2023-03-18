@@ -1,15 +1,26 @@
 import pizza from '../pizza';
 import PizzaButton from '../components/PizzaButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 const PizzaPage = () => {
-  const [sizeOn, setSizeOn] = useState(pizza.sizes);
+  const [sizeOn, setSizeOn] = useState([]);
+  // const [sizeOn, setSizeOn] = useState(pizza.sizes);
   const [crustOn, setCrustOn] = useState(pizza.crusts);
   const [toppingType, setToppingType] = useState(pizza.toppingType);
   const [sauceOn, setSauceOn] = useState(pizza.toppings.sauces);
   const [cheeseOn, setCheeseOn] = useState(pizza.toppings.cheeses);
   const [meatOn, setMeatOn] = useState(pizza.toppings.meats);
   const [veggieOn, setVeggieOn] = useState(pizza.toppings.veggies);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/v1/').then((response) => {
+      let sizes = response.data.sizes;
+
+      setSizeOn(sizes);
+    });
+  }, []);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {
@@ -41,6 +52,8 @@ const PizzaPage = () => {
       toggle={toggleOption}
     />
   ));
+
+  console.log(sizeOn);
 
   const pizzaCrust = crustOn.map((crust) => (
     <PizzaButton
