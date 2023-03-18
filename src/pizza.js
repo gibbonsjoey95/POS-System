@@ -43,23 +43,23 @@ const toppingType = [
   {
     name: 'Sauces',
     active: false,
-    id: 1,
+    _id: 1,
   },
 
   {
     name: 'Cheeses',
     active: false,
-    id: 2,
+    _id: 2,
   },
   {
     name: 'Meats',
     active: false,
-    id: 3,
+    _id: 3,
   },
   {
     name: 'Veggies',
     active: false,
-    id: 4,
+    _id: 4,
   },
 ];
 
