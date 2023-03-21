@@ -1,6 +1,5 @@
 import CustomerInfoPage from '../pages/CustomerInfoPage';
 import PizzaPage from '../pages/PizzaPage';
-// import EverythingElsePage from '../pages/EverythingElsePage';
 import PaymentsPage from '../pages/PaymentsPage';
 import FinishPage from '../pages/FinishPage';
 import PageTitle from './PageTitle';

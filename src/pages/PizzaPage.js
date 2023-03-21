@@ -18,7 +18,7 @@ const PizzaPage = () => {
     axios.get('http://localhost:4000/api/v1/').then((response) => {
       let sizes = response.data.sizes;
       let crusts = response.data.crusts;
-      // let toppingTypes = response.data.toppingTypes;
+      let toppingTypes = response.data.toppingTypes;
       let sauces = response.data.toppings.sauces;
       let cheeses = response.data.toppings.cheeses;
       let meats = response.data.toppings.meats;
@@ -26,7 +26,7 @@ const PizzaPage = () => {
 
       setSizeOn(sizes);
       setCrustOn(crusts);
-      // setToppingType(toppingTypes);
+      setToppingType(toppingTypes);
       setSauceOn(sauces);
       setCheeseOn(cheeses);
       setMeatOn(meats);
