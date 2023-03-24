@@ -1,21 +1,39 @@
-import { useAtom } from 'jotai';
-import { items } from '../store';
+// import { useAtom } from 'jotai';
+// import { orderItems } from '../store';
+
+import axios from 'axios';
 
 const PageTitle = ({ pageName }) => {
-  const [item, setItem] = useAtom(items);
+  // const [item, setItem] = useAtom(orderItems);
+
+  // const addNewPizza = () => {
+  //   const pizzaObject = {
+  //     id: item.length + 1,
+  //     size: '',
+  //     crust: '',
+  //     topping: [
+  //       {
+  //         id: 1,
+  //       },
+  //     ],
+  //   };
+  //   setItem(item.concat(pizzaObject));
+  // };
 
   const addNewPizza = () => {
-    const pizzaObject = {
-      id: item.length + 1,
-      size: '',
-      crust: '',
-      topping: [
+    axios.post('localhost:4000/api/items', {
+      size: 'Small',
+      crust: 'Pan',
+      price: 5.99,
+      active: false,
+      toppings: [
         {
-          id: 1,
+          name: 'Beef',
         },
       ],
-    };
-    setItem(item.concat(pizzaObject));
+    });
+
+    console.log('yes');
   };
 
   return (

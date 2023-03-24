@@ -33,7 +33,7 @@ export const links = atom([
   },
 ]);
 
-export const items = atom([
+export const orderItems = atom([
   {
     id: 1,
     size: 'Large',

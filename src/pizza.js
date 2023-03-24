@@ -1,12 +1,12 @@
 const toppingType = [
   {
-    name: 'Sauces',
+    name: 'Cheeses',
     active: false,
     _id: 1,
   },
 
   {
-    name: 'Cheeses',
+    name: 'Sauces',
     active: false,
     _id: 2,
   },

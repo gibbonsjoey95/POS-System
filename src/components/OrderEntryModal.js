@@ -8,11 +8,13 @@ import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
 import OrderTaskList from './OrderTaskList';
 import { useAtom } from 'jotai';
-import { items, links } from '../store';
+import { links } from '../store';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
-  const [item, setItem] = useAtom(items);
+  const [item, setItem] = useState([]);
+  // const [item, setItem] = useAtom(items);
   const [linkTo, setLinkTo] = useAtom(links);
   const [title, setTitle] = useState('');
 
@@ -37,6 +39,13 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     />
   ));
 
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/items/').then((response) => {
+      console.log(response.data.items);
+      setItem(response.data.items);
+    });
+  }, []);
+
   const handleItemClick = (id) => {
     setItem((prevItem) => {
       return prevItem.map((item) => {
@@ -59,13 +68,13 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     <OrderItem
       active={items.active}
       onItemClick={handleItemClick}
-      key={items.id}
-      id={items.id}
+      key={items._id}
+      id={items._id}
       size={items.size}
       crust={items.crust}
       price={items.price}
-      toppings={items.topping.map((top) => (
-        <li key={top.id}>{top.name}</li>
+      toppings={items.toppings.map((top) => (
+        <li key={top._id}>{top.name}</li>
       ))}
     />
   ));

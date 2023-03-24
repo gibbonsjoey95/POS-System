@@ -15,7 +15,7 @@ const PizzaPage = () => {
   const [veggieOn, setVeggieOn] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/v1/').then((response) => {
+    axios.get('http://localhost:4000/api/products').then((response) => {
       let sizes = response.data.sizes;
       let crusts = response.data.crusts;
       let toppingTypes = response.data.toppingTypes;
