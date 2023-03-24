@@ -2,7 +2,7 @@ import pizza from '../pizza';
 import PizzaButton from '../components/PizzaButton';
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
+import productService from '../services/products';
 
 const PizzaPage = () => {
   const [sizeOn, setSizeOn] = useState([]);
@@ -15,22 +15,14 @@ const PizzaPage = () => {
   const [veggieOn, setVeggieOn] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/products').then((response) => {
-      let sizes = response.data.sizes;
-      let crusts = response.data.crusts;
-      let toppingTypes = response.data.toppingTypes;
-      let sauces = response.data.toppings.sauces;
-      let cheeses = response.data.toppings.cheeses;
-      let meats = response.data.toppings.meats;
-      let veggies = response.data.toppings.veggies;
-
-      setSizeOn(sizes);
-      setCrustOn(crusts);
-      setToppingType(toppingTypes);
-      setSauceOn(sauces);
-      setCheeseOn(cheeses);
-      setMeatOn(meats);
-      setVeggieOn(veggies);
+    productService.getAllProducts().then((initialProducts) => {
+      setSizeOn(initialProducts.sizes);
+      setCrustOn(initialProducts.crusts);
+      setToppingType(initialProducts.toppingTypes);
+      setSauceOn(initialProducts.toppings.sauces);
+      setCheeseOn(initialProducts.toppings.cheeses);
+      setMeatOn(initialProducts.toppings.meats);
+      setVeggieOn(initialProducts.toppings.veggies);
     });
   }, []);
 

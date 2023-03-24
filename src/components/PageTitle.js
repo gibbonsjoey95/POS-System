@@ -1,9 +1,9 @@
 // import { useAtom } from 'jotai';
 // import { orderItems } from '../store';
 
-import axios from 'axios';
+// import axios from 'axios';
 
-const PageTitle = ({ pageName }) => {
+const PageTitle = ({ pageName, onAddItemClick }) => {
   // const [item, setItem] = useAtom(orderItems);
 
   // const addNewPizza = () => {
@@ -20,27 +20,27 @@ const PageTitle = ({ pageName }) => {
   //   setItem(item.concat(pizzaObject));
   // };
 
-  const addNewPizza = () => {
-    axios.post('localhost:4000/api/items', {
-      size: 'Small',
-      crust: 'Pan',
-      price: 5.99,
-      active: false,
-      toppings: [
-        {
-          name: 'Beef',
-        },
-      ],
-    });
+  // const addNewPizza = () => {
+  //   axios.post('http://localhost:4000/api/items', {
+  //     size: 'Small',
+  //     crust: 'Pan',
+  //     price: 5.99,
+  //     active: false,
+  //     toppings: [
+  //       {
+  //         name: 'Beef',
+  //       },
+  //     ],
+  //   });
 
-    console.log('yes');
-  };
+  //   console.log('yes');
+  // };
 
   return (
     <div className='title-bar'>
       <h1>{pageName}</h1>
       <div className='title--title-btn'>
-        <button className='button blue' onClick={addNewPizza}>
+        <button className='button blue' onClick={() => onAddItemClick()}>
           New Pizza
         </button>
         <button className='button blue'>Minus One</button>

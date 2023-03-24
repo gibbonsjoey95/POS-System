@@ -10,10 +10,12 @@ import OrderTaskList from './OrderTaskList';
 import { useAtom } from 'jotai';
 import { links } from '../store';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import itemService from '../services/orderItems';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   const [item, setItem] = useState([]);
+  // const [item, setItem] = useAtom(orderItems);
   // const [item, setItem] = useAtom(items);
   const [linkTo, setLinkTo] = useAtom(links);
   const [title, setTitle] = useState('');
@@ -40,16 +42,55 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   ));
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/items/').then((response) => {
-      console.log(response.data.items);
-      setItem(response.data.items);
-    });
+    itemService.getAllOrderItems().then((items) => setItem(items.items));
   }, []);
+
+  const addNewOrderItem = () => {
+    // const itemObject = {
+    //   size: item[0].size,
+    //   crust: item[0].crust,
+    //   price: item[0].price,
+    //   active: item[0].price,
+    //   toppings: [
+    //     {
+    //       name: item[0].toppings[0].name,
+    //       _id: item[0].toppings[0]._id,
+    //     },
+    //   ],
+    // };
+
+    // itemService.createOrderItem(itemObject).then((returnedItem) => {
+    //   setItem(item.concat(returnedItem)).catch((error) => {
+    //     console.log(error.response.data);
+    //   });
+    // });
+
+    const itemObject = {
+      size: item[0].size,
+      crust: item[0].crust,
+      price: item[0].price,
+      active: item[0].price,
+      toppings: [
+        {
+          name: item[0].toppings[0].name,
+          _id: item[0].toppings[0]._id,
+        },
+      ],
+    };
+
+    try {
+      itemService.createOrderItem(itemObject).then((returnedItem) => {
+        setItem(item.concat(returnedItem));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleItemClick = (id) => {
     setItem((prevItem) => {
       return prevItem.map((item) => {
-        return item.id === id
+        return item._id === id
           ? { ...item, active: !item.active }
           : { ...item, active: false };
       });
@@ -103,7 +144,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         </div>
       </div>
       <div className='page'>
-        <PageTitle pageName={title} />
+        <PageTitle pageName={title} onAddItemClick={addNewOrderItem} />
         <Routes>
           <Route path='/' element={<CustomerInfoPage />} />
           <Route path='/pizzas-page' element={<PizzaPage />} />

@@ -33,43 +33,45 @@ export const links = atom([
   },
 ]);
 
-export const orderItems = atom([
-  {
-    id: 1,
-    size: 'Large',
-    crust: 'Thin',
-    price: 7.99,
-    topping: [
-      {
-        id: 1,
-        name: 'Pepperoni',
-      },
-      {
-        id: 2,
-        name: 'Onions',
-      },
-      {
-        id: 3,
-        name: 'Beef',
-      },
-    ],
-    active: false,
-  },
-  {
-    id: 2,
-    size: 'Medium',
-    crust: 'Original',
-    price: 5.99,
-    topping: [
-      {
-        id: 1,
-        name: 'Jalapenos',
-      },
-      {
-        id: 2,
-        name: 'Pineapple',
-      },
-    ],
-    active: false,
-  },
-]);
+export const orderItems = atom([]);
+
+// export const orderItems = atom([
+//   {
+//     id: 1,
+//     size: 'Large',
+//     crust: 'Thin',
+//     price: 7.99,
+//     topping: [
+//       {
+//         id: 1,
+//         name: 'Pepperoni',
+//       },
+//       {
+//         id: 2,
+//         name: 'Onions',
+//       },
+//       {
+//         id: 3,
+//         name: 'Beef',
+//       },
+//     ],
+//     active: false,
+//   },
+//   {
+//     id: 2,
+//     size: 'Medium',
+//     crust: 'Original',
+//     price: 5.99,
+//     topping: [
+//       {
+//         id: 1,
+//         name: 'Jalapenos',
+//       },
+//       {
+//         id: 2,
+//         name: 'Pineapple',
+//       },
+//     ],
+//     active: false,
+//   },
+// ]);
