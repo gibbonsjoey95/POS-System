@@ -12,6 +12,7 @@ import { links } from '../store';
 import { useEffect, useState } from 'react';
 
 import itemService from '../services/orderItems';
+// import axios from 'axios';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   const [item, setItem] = useState([]);
@@ -46,46 +47,58 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   }, []);
 
   const addNewOrderItem = () => {
-    // const itemObject = {
-    //   size: item[0].size,
-    //   crust: item[0].crust,
-    //   price: item[0].price,
-    //   active: item[0].price,
-    //   toppings: [
-    //     {
-    //       name: item[0].toppings[0].name,
-    //       _id: item[0].toppings[0]._id,
-    //     },
-    //   ],
-    // };
-
-    // itemService.createOrderItem(itemObject).then((returnedItem) => {
-    //   setItem(item.concat(returnedItem)).catch((error) => {
-    //     console.log(error.response.data);
-    //   });
-    // });
-
     const itemObject = {
       size: item[0].size,
       crust: item[0].crust,
-      price: item[0].price,
-      active: item[0].price,
+      price: 7,
+      active: item[0].active,
       toppings: [
         {
-          name: item[0].toppings[0].name,
+          name: 'Beef',
           _id: item[0].toppings[0]._id,
+        },
+        {
+          name: 'Onion',
+          _id: item[0].toppings[1]._id,
         },
       ],
     };
 
-    try {
-      itemService.createOrderItem(itemObject).then((returnedItem) => {
-        setItem(item.concat(returnedItem));
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    itemService.createOrderItem(itemObject).then((returnedItem) => {
+      setItem(item.concat(returnedItem));
+    });
+
+    console.log(
+      'itemObject',
+      itemObject.toppings.map((top) => top.name)
+    );
+
+    console.log('item', item);
   };
+
+  // const addNewOrderItem = () => {
+  //   const itemObject = {
+  //     size: item[0].size,
+  //     crust: item[0].crust,
+  //     price: 7,
+  //     active: false,
+  //     toppings: [
+  //       {
+  //         name: item[0].toppings[0].name,
+  //         _id: item[0].toppings[0]._id,
+  //       },
+  //     ],
+  //   };
+
+  //   axios
+  //     .post('http://localhost:4000/api/items/', itemObject)
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.response.data);
+  //     });
+  // };
 
   const handleItemClick = (id) => {
     setItem((prevItem) => {
@@ -114,9 +127,9 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       size={items.size}
       crust={items.crust}
       price={items.price}
-      toppings={items.toppings.map((top) => (
-        <li key={top._id}>{top.name}</li>
-      ))}
+      // toppings={items.toppings.map((top) => (
+      //   <li key={top._id}>{top.name}</li>
+      // ))}
     />
   ));
 
