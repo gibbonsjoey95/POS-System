@@ -55,7 +55,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       toppings: [
         {
           name: 'Beef',
-          _id: item[0].toppings[0]._id,
         },
         {
           name: 'Onion',
@@ -75,6 +74,26 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
     console.log('item', item);
   };
+
+  // const removeOrderItem = () => {
+  //   const arrItem = [];
+
+  //   item.map((items) => {
+  //     if (items.active === true) {
+  //       arrItem.push(items._id);
+  //     }
+  //   });
+
+  //   console.log('arrItem', arrItem);
+
+  //   itemService.deleteOrderItem(arrItem).then((response) => {
+  //     setItem((prevItem) => {
+  //       prevItem.filter((item) => item._id !== response.item._id);
+  //     });
+  //   });
+
+  //   console.log('item', item);
+  // };
 
   // const addNewOrderItem = () => {
   //   const itemObject = {
@@ -111,34 +130,74 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   };
 
   useEffect(() => {
-    item.map((item) => item.active);
+    item?.map((item) => item.active);
   }, [item]);
 
   useEffect(() => {
     linkTo.map((link) => link.active && setTitle(link.name));
   }, [linkTo]);
 
-  let itemsInOrder = item.map((items) => (
-    <OrderItem
-      active={items.active}
-      onItemClick={handleItemClick}
-      key={items._id}
-      id={items._id}
-      size={items.size}
-      crust={items.crust}
-      price={items.price}
-      // toppings={items.toppings.map((top) => (
-      //   <li key={top._id}>{top.name}</li>
-      // ))}
-    />
-  ));
+  // let itemsInOrder = item.map((items) => (
+  //   <OrderItem
+  //     active={items.active}
+  //     onItemClick={handleItemClick}
+  //     key={items._id}
+  //     id={items._id}
+  //     size={items.size}
+  //     crust={items.crust}
+  //     price={items.price}
+  //     // toppings={items.toppings.map((top) => (
+  //     //   <li key={top._id}>{top.name}</li>
+  //     // ))}
+  //   />
+  // ));
+
+  const setOrderItems = () => {
+    let itemsInOrder = item?.map((items) => (
+      <OrderItem
+        active={items.active}
+        onItemClick={handleItemClick}
+        key={items._id}
+        id={items._id}
+        size={items.size}
+        crust={items.crust}
+        price={items.price}
+        toppings={items.toppings?.map((top) => (
+          <li key={top._id}>{top.name}</li>
+        ))}
+      />
+    ));
+
+    return itemsInOrder;
+  };
+
+  const removeOrderItem = () => {
+    const arrItem = [];
+
+    item.map((items) => {
+      if (items.active === true) {
+        arrItem.push(items._id);
+      }
+    });
+
+    console.log('arrItem', arrItem);
+
+    itemService.deleteOrderItem(arrItem).then((response) => {
+      setItem((prevItem) => {
+        prevItem.filter((items) => items._id !== response.item._id);
+        setOrderItems();
+      });
+    });
+
+    console.log('item', item);
+  };
 
   return (
     <div className='order-container'>
       <div className='order'>
         <OrderCustomerInfo />
         <div className='order-items'>
-          <ul>{itemsInOrder}</ul>
+          <ul>{setOrderItems()}</ul>
         </div>
         <div className=''>
           <div className='order-to-be-paid'>
@@ -157,7 +216,11 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         </div>
       </div>
       <div className='page'>
-        <PageTitle pageName={title} onAddItemClick={addNewOrderItem} />
+        <PageTitle
+          pageName={title}
+          onAddItemClick={addNewOrderItem}
+          onDeleteItemClick={removeOrderItem}
+        />
         <Routes>
           <Route path='/' element={<CustomerInfoPage />} />
           <Route path='/pizzas-page' element={<PizzaPage />} />

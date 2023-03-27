@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:4000/api/items/';
+const baseUrl = 'http://localhost:4000/api/items';
 
 const getAllOrderItems = () => {
   const request = axios.get(baseUrl);
@@ -11,6 +11,11 @@ const createOrderItem = (newObject) => {
   return request.then((response) => response.data);
 };
 
-const itemService = { getAllOrderItems, createOrderItem };
+const deleteOrderItem = (id) => {
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
+};
+
+const itemService = { getAllOrderItems, createOrderItem, deleteOrderItem };
 
 export default itemService;

@@ -3,7 +3,7 @@
 
 // import axios from 'axios';
 
-const PageTitle = ({ pageName, onAddItemClick }) => {
+const PageTitle = ({ pageName, onAddItemClick, onDeleteItemClick }) => {
   // const [item, setItem] = useAtom(orderItems);
 
   // const addNewPizza = () => {
@@ -48,7 +48,9 @@ const PageTitle = ({ pageName, onAddItemClick }) => {
           Qty <input type='number' />
         </button>
         <button className='button blue'>Plus One</button>
-        <button className='button red'>Delete Pizza</button>
+        <button className='button red' onClick={() => onDeleteItemClick()}>
+          Delete Pizza
+        </button>
       </div>
     </div>
   );
