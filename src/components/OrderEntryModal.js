@@ -126,6 +126,32 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       });
   };
 
+  const moveActiveDown = () => {
+    // let actives = item.map((item) => item.active);
+    // // console.log('actives', actives);
+    // for (let i = 0; i < actives.length; i++) {
+    //   if (actives[i] === true) {
+    //     console.log(actives);
+    //     actives[i + 1] = true;
+    //     actives[i] = false;
+    //     console.log(actives);
+    //     return;
+    //   }
+    // }
+
+    console.log('items', item);
+
+    setItem((prevItem) => {
+      return prevItem.map((item) => {
+        console.log('item.active', item.active);
+      });
+    });
+  };
+
+  const moveActiveUp = () => {
+    console.log('Up');
+  };
+
   return (
     <div className='order-container'>
       <div className='order'>
@@ -133,7 +159,12 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         <div className='order-items'>
           <ul>{setOrderItems()}</ul>
         </div>
-        <OrderInfo items={item} />
+        <OrderInfo
+          items={item}
+          // getOrderTotal={getOrderTotal()}
+          onDownClick={moveActiveDown}
+          onUpClick={moveActiveUp}
+        />
       </div>
       <div className='page'>
         <PageTitle

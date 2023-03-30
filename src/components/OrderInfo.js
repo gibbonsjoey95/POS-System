@@ -1,4 +1,4 @@
-const OrderInfo = ({ items }) => {
+const OrderInfo = ({ items, onDownClick, onUpClick }) => {
   const getOrderTotal = () => {
     let initialTotal = 0;
 
@@ -8,6 +8,26 @@ const OrderInfo = ({ items }) => {
 
     return initialTotal.toFixed(2);
   };
+
+  // const moveActiveDown = () => {
+  //   let actives = items.map((item) => item.active);
+
+  //   // console.log('actives', actives);
+
+  //   for (let i = 0; i < actives.length; i++) {
+  //     if (actives[i] === true) {
+  //       console.log(actives);
+  //       actives[i + 1] = true;
+  //       actives[i] = false;
+  //       console.log(actives);
+  //       return;
+  //     }
+  //   }
+  // };
+
+  // const moveActiveUp = () => {
+  //   console.log('up');
+  // };
 
   return (
     <div>
@@ -22,8 +42,12 @@ const OrderInfo = ({ items }) => {
         </div>
       </div>
       <div className='order-nav'>
-        <button className='button blue'>Down</button>
-        <button className='button blue'>Up</button>
+        <button className='button blue' onClick={() => onDownClick()}>
+          Down
+        </button>
+        <button className='button blue' onClick={() => onUpClick()}>
+          Up
+        </button>
         <button className='button blue'>Tax and Total</button>
       </div>
     </div>
