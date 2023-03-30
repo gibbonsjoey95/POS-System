@@ -126,30 +126,32 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       });
   };
 
-  const moveActiveDown = () => {
-    // let actives = item.map((item) => item.active);
-    // // console.log('actives', actives);
-    // for (let i = 0; i < actives.length; i++) {
-    //   if (actives[i] === true) {
-    //     console.log(actives);
-    //     actives[i + 1] = true;
-    //     actives[i] = false;
-    //     console.log(actives);
-    //     return;
-    //   }
-    // }
+  const handleActiveItemClick = (direction) => {
+    const activeIndex = item.findIndex((item) => item.active);
+    let nextIndex = 0;
 
-    console.log('items', item);
+    if (activeIndex !== -1) {
+      nextIndex =
+        (direction === 'down' ? activeIndex + 1 : activeIndex - 1) %
+        item.length;
+      if (nextIndex < 0) {
+        nextIndex += item.length;
+      }
+    }
 
-    setItem((prevItem) => {
-      return prevItem.map((item) => {
-        console.log('item.active', item.active);
-      });
+    const updatedItems = item.map((item, i) => {
+      return { ...item, active: i === nextIndex };
     });
+
+    setItem(updatedItems);
+  };
+
+  const moveActiveDown = () => {
+    handleActiveItemClick('down');
   };
 
   const moveActiveUp = () => {
-    console.log('Up');
+    handleActiveItemClick('up');
   };
 
   return (
