@@ -16,6 +16,16 @@ const deleteOrderItem = (id) => {
   return request.then((response) => response.data);
 };
 
-const itemService = { getAllOrderItems, createOrderItem, deleteOrderItem };
+const updateItem = (id, newObject) => {
+  const request = axios.patch(`${baseUrl}/${id}`, newObject);
+  return request.then((response) => response.data);
+};
+
+const itemService = {
+  getAllOrderItems,
+  createOrderItem,
+  deleteOrderItem,
+  updateItem,
+};
 
 export default itemService;

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import productService from '../services/products';
 
-const PizzaPage = () => {
+const PizzaPage = ({ onSizeClick }) => {
   const [sizeOn, setSizeOn] = useState([]);
   const [crustOn, setCrustOn] = useState([]);
   // const [toppingType, setToppingType] = useState([]);
@@ -34,6 +34,8 @@ const PizzaPage = () => {
           : { ...itemObj, active: false };
       });
     });
+
+    console.log('sizeOn', sizeOn);
   };
 
   const toggleToppingOption = (setFunction, id) => {
@@ -54,6 +56,7 @@ const PizzaPage = () => {
       setFunction={setSizeOn}
       id={size._id}
       toggle={toggleOption}
+      onClick={() => onSizeClick()}
     />
   ));
 

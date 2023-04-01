@@ -154,6 +154,10 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     handleActiveItemClick('up');
   };
 
+  // const handleChangeSize = () => {
+  //   console.log('Yes');
+  // };
+
   return (
     <div className='order-container'>
       <div className='order'>
