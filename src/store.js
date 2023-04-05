@@ -11,7 +11,7 @@ export const links = atom([
     id: 1,
     name: 'Customer',
     linkTo: '/',
-    active: true,
+    active: false,
   },
   {
     id: 2,

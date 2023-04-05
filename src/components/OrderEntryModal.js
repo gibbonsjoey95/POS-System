@@ -3,7 +3,6 @@ import PizzaPage from '../pages/PizzaPage';
 import PaymentsPage from '../pages/PaymentsPage';
 import FinishPage from '../pages/FinishPage';
 import PageTitle from './PageTitle';
-import { Routes, Route } from 'react-router-dom';
 import OrderCustomerInfo from './OrderCustomerInfo';
 import OrderItem from './OrderItem';
 import OrderTaskList from './OrderTaskList';
@@ -19,7 +18,15 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const [linkTo, setLinkTo] = useAtom(links);
   const [title, setTitle] = useState('');
 
+  const [page, setPage] = useState('');
+
   const togglePageLink = (id) => {
+    for (let i = 0; i < linkTo.length; i++) {
+      if (linkTo[i].id === id) {
+        setPage(linkTo[i].name);
+      }
+    }
+
     setLinkTo((prevLinkTo) => {
       return prevLinkTo.map((link) => {
         return link.id === id
@@ -45,6 +52,8 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   }, []);
 
   const handleItemClick = (id) => {
+    setPage('Pizzas');
+
     setItem((prevItem) => {
       return prevItem.map((item) => {
         return item._id === id
@@ -178,12 +187,16 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onAddItemClick={addNewOrderItem}
           onDeleteItemClick={removeOrderItem}
         />
-        <Routes>
+        {page === 'Customer' && <CustomerInfoPage />}
+        {page === 'Pizzas' && <PizzaPage />}
+        {page === 'Payments' && <PaymentsPage />}
+        {page === 'Finish' && <FinishPage />}
+        {/* <Routes>
           <Route path='/' element={<CustomerInfoPage />} />
           <Route path='/pizzas-page' element={<PizzaPage />} />
           <Route path='/payments-page' element={<PaymentsPage />} />
           <Route path='/finish-page' element={<FinishPage />} />
-        </Routes>
+        </Routes> */}
       </div>
       <div className='order-task-list'>
         <div
