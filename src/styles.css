@@ -47,6 +47,10 @@
   background-color: #0a6ba2;
 }
 
+.active {
+  background-color: #FF7F11;
+}
+
 .login--welcome {
   font-size:  4rem;
   color: #fff;

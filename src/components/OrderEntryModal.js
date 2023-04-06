@@ -188,15 +188,26 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {page === 'Pizzas' && <PizzaPage />}
+        {/* delete this mapping element */}
+        {page === 'Pizzas' &&
+          item.map((orderItem) => (
+            <div key={orderItem._id}>
+              <h4>Order Item {orderItem._id}</h4>
+              <PizzaPage
+                testSizeOn={orderItem.size}
+                testSetSizeOn={(size) =>
+                  setItem(
+                    item.map((o) =>
+                      o.id === orderItem.id ? { ...o, size: size } : o
+                    )
+                  )
+                }
+              />
+            </div>
+          ))}
+        {/* {page === 'Pizzas' && <PizzaPage />} */}
         {page === 'Payments' && <PaymentsPage />}
         {page === 'Finish' && <FinishPage />}
-        {/* <Routes>
-          <Route path='/' element={<CustomerInfoPage />} />
-          <Route path='/pizzas-page' element={<PizzaPage />} />
-          <Route path='/payments-page' element={<PaymentsPage />} />
-          <Route path='/finish-page' element={<FinishPage />} />
-        </Routes> */}
       </div>
       <div className='order-task-list'>
         <div
