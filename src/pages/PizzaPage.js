@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 
 import productService from '../services/products';
 
-const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
-  // fix sizes state
-  const [sizes, setSizes] = useState([]);
-  // const [sizeOn, setSizeOn] = useState([]);
+const PizzaPage = () => {
+  const [sizeOn, setSizeOn] = useState([]);
   const [crustOn, setCrustOn] = useState([]);
   // const [toppingType, setToppingType] = useState([]);
   const [toppingType, setToppingType] = useState(pizza.toppingType);
@@ -18,9 +16,7 @@ const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
 
   useEffect(() => {
     productService.getAllProducts().then((initialProducts) => {
-      // delete setSizes
-      setSizes(initialProducts.sizes);
-      // setSizeOn(initialProducts.sizes);
+      setSizeOn(initialProducts.sizes);
       setCrustOn(initialProducts.crusts);
       setToppingType(initialProducts.toppingTypes);
       setSauceOn(initialProducts.toppings.sauces);
@@ -30,18 +26,10 @@ const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
     });
   }, []);
 
-  // remove toggleSize
-  const toggleSize = (size) => {
-    const updatedSizes = sizes.map((s) => {
-      if (s.name === size.name) {
-        s.active = true;
-      } else {
-        s.active = false;
-      }
-      return s;
-    });
-    setSizes(updatedSizes);
-  };
+  useEffect(() => {
+    const activeSize = sizeOn.find((size) => size.active);
+    // console.log('Active size:', activeSize);
+  }, [sizeOn]);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {
@@ -63,14 +51,12 @@ const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
     });
   };
 
-  // change sizes back to sizeOn
-  const pizzaSize = sizes.map((size) => (
+  const pizzaSize = sizeOn.map((size) => (
     <PizzaButton
       key={size._id}
       active={size.active}
       buttonName={size.name}
-      setFunction={setSizes}
-      // setFunction={setSizeOn}
+      setFunction={setSizeOn}
       id={size._id}
       toggle={toggleOption}
     />
@@ -146,7 +132,7 @@ const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
     <div className='pizzas-page'>
       <div>
         <h2 className='section-title'>Size</h2>
-        <div>
+        {/* <div>
           {sizes.map((size) => (
             <button
               key={size.name}
@@ -157,8 +143,8 @@ const PizzaPage = ({ testSizeOn, testSetSizeOn }) => {
               {size.name}
             </button>
           ))}
-        </div>
-        {/* <div className='section'>{pizzaSize}</div> */}
+        </div> */}
+        <div className='section'>{pizzaSize}</div>
       </div>
       <div>
         <h2 className='section-title'>Crust</h2>

@@ -5,7 +5,7 @@ const OrderTaskList = ({ active, linkTo, name, toggle, id }) => {
 
   return (
     <div className='style'>
-      <div className='order-task-link' to={linkTo} onClick={() => toggle(id)}>
+      <div className='order-task-link' onClick={() => toggle(id)}>
         <div className='order-task-container button blue' style={styles}>
           {name}
         </div>

@@ -51,6 +51,16 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     itemService.getAllOrderItems().then((items) => setItem(items.items));
   }, []);
 
+  useEffect(() => {
+    const activeItem = item.find((item) => item.active);
+
+    if (activeItem) {
+      console.log('Active item:', activeItem.size);
+    } else {
+      console.log('Active item: None');
+    }
+  }, [item]);
+
   const handleItemClick = (id) => {
     setPage('Pizzas');
 
@@ -72,7 +82,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   }, [linkTo]);
 
   const setOrderItems = () => {
-    let itemsInOrder = item?.map((items) => (
+    let itemsInOrder = item.map((items) => (
       <OrderItem
         active={items.active}
         onItemClick={handleItemClick}
@@ -188,24 +198,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {/* delete this mapping element */}
-        {page === 'Pizzas' &&
-          item.map((orderItem) => (
-            <div key={orderItem._id}>
-              <h4>Order Item {orderItem._id}</h4>
-              <PizzaPage
-                testSizeOn={orderItem.size}
-                testSetSizeOn={(size) =>
-                  setItem(
-                    item.map((o) =>
-                      o.id === orderItem.id ? { ...o, size: size } : o
-                    )
-                  )
-                }
-              />
-            </div>
-          ))}
-        {/* {page === 'Pizzas' && <PizzaPage />} */}
+        {page === 'Pizzas' && <PizzaPage />}
         {page === 'Payments' && <PaymentsPage />}
         {page === 'Finish' && <FinishPage />}
       </div>
