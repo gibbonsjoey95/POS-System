@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import productService from '../services/products';
 
-const PizzaPage = () => {
+const PizzaPage = ({ activeSize }) => {
   const [sizeOn, setSizeOn] = useState([]);
   const [crustOn, setCrustOn] = useState([]);
   // const [toppingType, setToppingType] = useState([]);
@@ -30,6 +30,27 @@ const PizzaPage = () => {
     const activeSize = sizeOn.find((size) => size.active);
     // console.log('Active size:', activeSize);
   }, [sizeOn]);
+
+  useEffect(() => {
+    const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
+
+    if (activeSize === '') {
+      console.log('yes');
+    } else {
+      console.log(activeSize);
+    }
+
+    setSizeOn((prevSizeOn) => {
+      return prevSizeOn.map((itemObj) => {
+        return itemObj._id === findActiveSizeName._id
+          ? { ...itemObj, active: true }
+          : { ...itemObj, active: false };
+      });
+    });
+
+    // console.log('find activeSize', findActiveSizeName);
+  }, [activeSize]);
+  // }, [activeSize, sizeOn]);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {

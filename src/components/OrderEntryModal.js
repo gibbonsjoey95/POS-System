@@ -20,6 +20,8 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   const [page, setPage] = useState('');
 
+  const [activeSize, setActiveSize] = useState('');
+
   const togglePageLink = (id) => {
     for (let i = 0; i < linkTo.length; i++) {
       if (linkTo[i].id === id) {
@@ -55,11 +57,11 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     const activeItem = item.find((item) => item.active);
 
     if (activeItem) {
-      console.log('Active item:', activeItem.size);
+      setActiveSize(activeItem.size);
     } else {
       console.log('Active item: None');
     }
-  }, [item]);
+  }, [item, activeSize]);
 
   const handleItemClick = (id) => {
     setPage('Pizzas');
@@ -198,7 +200,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {page === 'Pizzas' && <PizzaPage />}
+        {page === 'Pizzas' && <PizzaPage activeSize={activeSize} />}
         {page === 'Payments' && <PaymentsPage />}
         {page === 'Finish' && <FinishPage />}
       </div>
