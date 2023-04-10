@@ -4,33 +4,46 @@ import { useEffect, useState } from 'react';
 
 import productService from '../services/products';
 
-const PizzaPage = ({ activeSize }) => {
-  const [sizeOn, setSizeOn] = useState([]);
-  const [crustOn, setCrustOn] = useState([]);
-  // const [toppingType, setToppingType] = useState([]);
-  const [toppingType, setToppingType] = useState(pizza.toppingType);
-  const [sauceOn, setSauceOn] = useState([]);
-  const [cheeseOn, setCheeseOn] = useState([]);
-  const [meatOn, setMeatOn] = useState([]);
-  const [veggieOn, setVeggieOn] = useState([]);
+const PizzaPage = ({ activeSize, products }) => {
+  // const [sizeOn, setSizeOn] = useState([]);
+  // const [crustOn, setCrustOn] = useState([]);
+  // // const [toppingType, setToppingType] = useState([]);
+  // const [toppingType, setToppingType] = useState(pizza.toppingType);
+  // const [sauceOn, setSauceOn] = useState([]);
+  // const [cheeseOn, setCheeseOn] = useState([]);
+  // const [meatOn, setMeatOn] = useState([]);
+  // const [veggieOn, setVeggieOn] = useState([]);
 
-  useEffect(() => {
-    productService.getAllProducts().then((initialProducts) => {
-      setSizeOn(initialProducts.sizes);
-      setCrustOn(initialProducts.crusts);
-      setToppingType(initialProducts.toppingTypes);
-      setSauceOn(initialProducts.toppings.sauces);
-      setCheeseOn(initialProducts.toppings.cheeses);
-      setMeatOn(initialProducts.toppings.meats);
-      setVeggieOn(initialProducts.toppings.veggies);
-    });
-  }, []);
+  // useEffect(() => {
+  //   productService.getAllProducts().then((initialProducts) => {
+  //     setSizeOn(initialProducts.sizes);
+  //     setCrustOn(initialProducts.crusts);
+  //     setToppingType(initialProducts.toppingTypes);
+  //     setSauceOn(initialProducts.toppings.sauces);
+  //     setCheeseOn(initialProducts.toppings.cheeses);
+  //     setMeatOn(initialProducts.toppings.meats);
+  //     setVeggieOn(initialProducts.toppings.veggies);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    const activeSize = sizeOn.find((size) => size.active);
-    // console.log('Active size:', activeSize);
-  }, [sizeOn]);
+  const [sizeOn, setSizeOn] = useState(products.sizes);
+  const [crustOn, setCrustOn] = useState(products.crusts);
+  const [toppingType, setToppingType] = useState(products.toppingTypes);
+  // const [toppingType, setToppingType] = useState(pizza.toppingType);
+  const [sauceOn, setSauceOn] = useState(products.toppings.sauces);
+  const [cheeseOn, setCheeseOn] = useState(products.toppings.cheeses);
+  const [meatOn, setMeatOn] = useState(products.toppings.meats);
+  const [veggieOn, setVeggieOn] = useState(products.toppings.veggies);
 
+  console.log('sizeOn', sizeOn);
+
+  // will use this to update order item
+  // useEffect(() => {
+  //   const activeSize = sizeOn.find((size) => size.active);
+  //   // console.log('Active size:', activeSize);
+  // }, [sizeOn]);
+
+  console.log('activeSize', activeSize);
   useEffect(() => {
     const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
 
@@ -48,8 +61,8 @@ const PizzaPage = ({ activeSize }) => {
       });
     });
 
-    // console.log('find activeSize', findActiveSizeName);
-  }, [activeSize]);
+    console.log('find activeSize', findActiveSizeName);
+  }, []);
   // }, [activeSize, sizeOn]);
 
   const toggleOption = (setFunction, id) => {

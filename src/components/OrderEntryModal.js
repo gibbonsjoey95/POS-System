@@ -12,15 +12,16 @@ import { links } from '../store';
 import { useEffect, useState } from 'react';
 
 import itemService from '../services/orderItems';
+import productService from '../services/products';
 
 const OrderEntryModal = ({ setOpenLogin }) => {
   const [item, setItem] = useState([]);
   const [linkTo, setLinkTo] = useAtom(links);
   const [title, setTitle] = useState('');
-
   const [page, setPage] = useState('');
-
   const [activeSize, setActiveSize] = useState('');
+
+  const [products, setProducts] = useState([]);
 
   const togglePageLink = (id) => {
     for (let i = 0; i < linkTo.length; i++) {
@@ -55,6 +56,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   useEffect(() => {
     const activeItem = item.find((item) => item.active);
+    console.log('activeItem', activeItem, 'here');
 
     if (activeItem) {
       setActiveSize(activeItem.size);
@@ -62,9 +64,18 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       console.log('Active item: None');
     }
   }, [item, activeSize]);
+  // }, [item, activeSize]);
+
+  useEffect(() => {
+    productService.getAllProducts().then((initialProducts) => {
+      setProducts(initialProducts);
+      // console.log('initial products', products);
+    });
+  }, [page]);
 
   const handleItemClick = (id) => {
-    setPage('Pizzas');
+    const activeItem = item.find((item) => item.active);
+    console.log('activeItem', activeItem, 'here');
 
     setItem((prevItem) => {
       return prevItem.map((item) => {
@@ -73,6 +84,8 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           : { ...item, active: false };
       });
     });
+
+    setPage('Pizzas');
   };
 
   useEffect(() => {
@@ -200,7 +213,9 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {page === 'Pizzas' && <PizzaPage activeSize={activeSize} />}
+        {page === 'Pizzas' && (
+          <PizzaPage activeSize={activeSize} products={products} />
+        )}
         {page === 'Payments' && <PaymentsPage />}
         {page === 'Finish' && <FinishPage />}
       </div>
