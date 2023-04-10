@@ -1,8 +1,8 @@
-import pizza from '../pizza';
+// import pizza from '../pizza';
 import PizzaButton from '../components/PizzaButton';
 import { useEffect, useState } from 'react';
 
-import productService from '../services/products';
+// import productService from '../services/products';
 
 const PizzaPage = ({ activeSize, products }) => {
   // const [sizeOn, setSizeOn] = useState([]);
@@ -29,13 +29,10 @@ const PizzaPage = ({ activeSize, products }) => {
   const [sizeOn, setSizeOn] = useState(products.sizes);
   const [crustOn, setCrustOn] = useState(products.crusts);
   const [toppingType, setToppingType] = useState(products.toppingTypes);
-  // const [toppingType, setToppingType] = useState(pizza.toppingType);
   const [sauceOn, setSauceOn] = useState(products.toppings.sauces);
   const [cheeseOn, setCheeseOn] = useState(products.toppings.cheeses);
   const [meatOn, setMeatOn] = useState(products.toppings.meats);
   const [veggieOn, setVeggieOn] = useState(products.toppings.veggies);
-
-  console.log('sizeOn', sizeOn);
 
   // will use this to update order item
   // useEffect(() => {
@@ -43,27 +40,33 @@ const PizzaPage = ({ activeSize, products }) => {
   //   // console.log('Active size:', activeSize);
   // }, [sizeOn]);
 
-  console.log('activeSize', activeSize);
   useEffect(() => {
     const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
 
-    if (activeSize === '') {
-      console.log('yes');
+    // if (activeSize === '') {
+    //   console.log('yes');
+    // } else {
+    //   console.log(activeSize);
+    // }
+
+    if (findActiveSizeName) {
+      setSizeOn((prevSizeOn) => {
+        return prevSizeOn.map((itemObj) => {
+          return itemObj._id === findActiveSizeName._id
+            ? { ...itemObj, active: true }
+            : { ...itemObj, active: false };
+        });
+      });
     } else {
-      console.log(activeSize);
+      setSizeOn((prevSizeOn) => {
+        return prevSizeOn.map((itemObj) => {
+          return { ...itemObj, active: false };
+        });
+      });
     }
 
-    setSizeOn((prevSizeOn) => {
-      return prevSizeOn.map((itemObj) => {
-        return itemObj._id === findActiveSizeName._id
-          ? { ...itemObj, active: true }
-          : { ...itemObj, active: false };
-      });
-    });
-
     console.log('find activeSize', findActiveSizeName);
-  }, []);
-  // }, [activeSize, sizeOn]);
+  }, [activeSize]);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {
@@ -166,18 +169,6 @@ const PizzaPage = ({ activeSize, products }) => {
     <div className='pizzas-page'>
       <div>
         <h2 className='section-title'>Size</h2>
-        {/* <div>
-          {sizes.map((size) => (
-            <button
-              key={size.name}
-              className={size.active ? 'button active' : 'button blue'}
-              onClick={() => toggleSize(size)}
-              disabled={!size.active && testSizeOn.length >= 4}
-            >
-              {size.name}
-            </button>
-          ))}
-        </div> */}
         <div className='section'>{pizzaSize}</div>
       </div>
       <div>

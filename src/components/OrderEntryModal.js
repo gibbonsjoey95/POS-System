@@ -56,26 +56,24 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   useEffect(() => {
     const activeItem = item.find((item) => item.active);
-    console.log('activeItem', activeItem, 'here');
 
     if (activeItem) {
       setActiveSize(activeItem.size);
     } else {
-      console.log('Active item: None');
+      return;
     }
   }, [item, activeSize]);
-  // }, [item, activeSize]);
 
   useEffect(() => {
     productService.getAllProducts().then((initialProducts) => {
       setProducts(initialProducts);
-      // console.log('initial products', products);
     });
-  }, [page]);
+  }, []);
 
   const handleItemClick = (id) => {
+    setPage('Pizzas');
+
     const activeItem = item.find((item) => item.active);
-    console.log('activeItem', activeItem, 'here');
 
     setItem((prevItem) => {
       return prevItem.map((item) => {
@@ -84,8 +82,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           : { ...item, active: false };
       });
     });
-
-    setPage('Pizzas');
   };
 
   useEffect(() => {
@@ -213,7 +209,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {page === 'Pizzas' && (
+        {page === 'Pizzas' && activeSize && (
           <PizzaPage activeSize={activeSize} products={products} />
         )}
         {page === 'Payments' && <PaymentsPage />}
