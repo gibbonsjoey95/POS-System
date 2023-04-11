@@ -73,8 +73,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const handleItemClick = (id) => {
     setPage('Pizzas');
 
-    const activeItem = item.find((item) => item.active);
-
     setItem((prevItem) => {
       return prevItem.map((item) => {
         return item._id === id
@@ -209,8 +207,14 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           onDeleteItemClick={removeOrderItem}
         />
         {page === 'Customer' && <CustomerInfoPage />}
-        {page === 'Pizzas' && activeSize && (
-          <PizzaPage activeSize={activeSize} products={products} />
+        {page === 'Pizzas' && (
+          <PizzaPage
+            activeSize={activeSize}
+            setActiveSize={setActiveSize}
+            products={products}
+            item={item}
+            setItem={setItem}
+          />
         )}
         {page === 'Payments' && <PaymentsPage />}
         {page === 'Finish' && <FinishPage />}

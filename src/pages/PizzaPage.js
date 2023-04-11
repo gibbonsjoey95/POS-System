@@ -1,31 +1,7 @@
-// import pizza from '../pizza';
 import PizzaButton from '../components/PizzaButton';
 import { useEffect, useState } from 'react';
 
-// import productService from '../services/products';
-
-const PizzaPage = ({ activeSize, products }) => {
-  // const [sizeOn, setSizeOn] = useState([]);
-  // const [crustOn, setCrustOn] = useState([]);
-  // // const [toppingType, setToppingType] = useState([]);
-  // const [toppingType, setToppingType] = useState(pizza.toppingType);
-  // const [sauceOn, setSauceOn] = useState([]);
-  // const [cheeseOn, setCheeseOn] = useState([]);
-  // const [meatOn, setMeatOn] = useState([]);
-  // const [veggieOn, setVeggieOn] = useState([]);
-
-  // useEffect(() => {
-  //   productService.getAllProducts().then((initialProducts) => {
-  //     setSizeOn(initialProducts.sizes);
-  //     setCrustOn(initialProducts.crusts);
-  //     setToppingType(initialProducts.toppingTypes);
-  //     setSauceOn(initialProducts.toppings.sauces);
-  //     setCheeseOn(initialProducts.toppings.cheeses);
-  //     setMeatOn(initialProducts.toppings.meats);
-  //     setVeggieOn(initialProducts.toppings.veggies);
-  //   });
-  // }, []);
-
+const PizzaPage = ({ activeSize, setActiveSize, products, item, setItem }) => {
   const [sizeOn, setSizeOn] = useState(products.sizes);
   const [crustOn, setCrustOn] = useState(products.crusts);
   const [toppingType, setToppingType] = useState(products.toppingTypes);
@@ -40,32 +16,39 @@ const PizzaPage = ({ activeSize, products }) => {
   //   // console.log('Active size:', activeSize);
   // }, [sizeOn]);
 
+  // console.log('activeSize outside', activeSize);
+  // console.log('item', item);
+
+  useEffect(() => {
+    const noActiveItems = item.every((item) => item.active === false);
+
+    if (noActiveItems) {
+      const updatedSizes = sizeOn.map((size) => {
+        return { ...size, active: false };
+      });
+      setSizeOn(updatedSizes);
+      setActiveSize('No active size');
+    }
+  }, [item]);
+
   useEffect(() => {
     const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
 
-    // if (activeSize === '') {
-    //   console.log('yes');
-    // } else {
-    //   console.log(activeSize);
-    // }
-
     if (findActiveSizeName) {
       setSizeOn((prevSizeOn) => {
-        return prevSizeOn.map((itemObj) => {
-          return itemObj._id === findActiveSizeName._id
-            ? { ...itemObj, active: true }
-            : { ...itemObj, active: false };
+        return prevSizeOn.map((size) => {
+          return size._id === findActiveSizeName._id
+            ? { ...size, active: true }
+            : { ...size, active: false };
         });
       });
     } else {
       setSizeOn((prevSizeOn) => {
-        return prevSizeOn.map((itemObj) => {
-          return { ...itemObj, active: false };
+        return prevSizeOn.map((size) => {
+          return { ...size, active: false };
         });
       });
     }
-
-    console.log('find activeSize', findActiveSizeName);
   }, [activeSize]);
 
   const toggleOption = (setFunction, id) => {
