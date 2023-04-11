@@ -1,7 +1,16 @@
 import PizzaButton from '../components/PizzaButton';
 import { useEffect, useState } from 'react';
 
-const PizzaPage = ({ activeSize, setActiveSize, products, item, setItem }) => {
+const PizzaPage = ({
+  activeSize,
+  setActiveSize,
+  activeCrust,
+  setActiveCrust,
+  activeToppings,
+  setActiveToppings,
+  products,
+  item,
+}) => {
   const [sizeOn, setSizeOn] = useState(products.sizes);
   const [crustOn, setCrustOn] = useState(products.crusts);
   const [toppingType, setToppingType] = useState(products.toppingTypes);
@@ -19,6 +28,7 @@ const PizzaPage = ({ activeSize, setActiveSize, products, item, setItem }) => {
   // console.log('activeSize outside', activeSize);
   // console.log('item', item);
 
+  // refactor later
   useEffect(() => {
     const noActiveItems = item.every((item) => item.active === false);
 
@@ -26,11 +36,21 @@ const PizzaPage = ({ activeSize, setActiveSize, products, item, setItem }) => {
       const updatedSizes = sizeOn.map((size) => {
         return { ...size, active: false };
       });
+
+      const updatedCrust = crustOn.map((crust) => {
+        return { ...crust, active: false };
+      });
+
       setSizeOn(updatedSizes);
+      setCrustOn(updatedCrust);
+
+      // look into why this is necessary
       setActiveSize('No active size');
+      setActiveCrust('No active crust');
     }
   }, [item]);
 
+  // Refactor later
   useEffect(() => {
     const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
 
@@ -50,6 +70,37 @@ const PizzaPage = ({ activeSize, setActiveSize, products, item, setItem }) => {
       });
     }
   }, [activeSize]);
+
+  // Refactor later
+  useEffect(() => {
+    const findActiveCrustName = crustOn.find(
+      (crust) => crust.name === activeCrust
+    );
+
+    if (findActiveCrustName) {
+      setCrustOn((prevCrustOn) => {
+        return prevCrustOn.map((crust) => {
+          return crust._id === findActiveCrustName._id
+            ? { ...crust, active: true }
+            : { ...crust, active: false };
+        });
+      });
+    } else {
+      setCrustOn((prevCrustOn) => {
+        return prevCrustOn.map((crust) => {
+          return { ...crust, active: false };
+        });
+      });
+    }
+  }, [activeCrust]);
+
+  // refactor later
+  useEffect(() => {
+    console.log('activeToppings', activeToppings.length);
+    for (let i = 0; i < activeToppings.length; i++) {
+      console.log(activeToppings[i]);
+    }
+  }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {

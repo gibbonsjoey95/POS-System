@@ -19,7 +19,10 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const [linkTo, setLinkTo] = useAtom(links);
   const [title, setTitle] = useState('');
   const [page, setPage] = useState('');
+
   const [activeSize, setActiveSize] = useState('');
+  const [activeCrust, setActiveCrust] = useState('');
+  const [activeToppings, setActiveToppings] = useState('');
 
   const [products, setProducts] = useState([]);
 
@@ -56,13 +59,16 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   useEffect(() => {
     const activeItem = item.find((item) => item.active);
+    console.log('activeItem', activeItem);
 
     if (activeItem) {
       setActiveSize(activeItem.size);
+      setActiveCrust(activeItem.crust);
+      setActiveToppings(activeItem.toppings);
     } else {
       return;
     }
-  }, [item, activeSize]);
+  }, [item]);
 
   useEffect(() => {
     productService.getAllProducts().then((initialProducts) => {
@@ -211,6 +217,10 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           <PizzaPage
             activeSize={activeSize}
             setActiveSize={setActiveSize}
+            activeCrust={activeCrust}
+            setActiveCrust={setActiveCrust}
+            activeToppings={activeToppings}
+            setActiveToppings={setActiveToppings}
             products={products}
             item={item}
             setItem={setItem}
