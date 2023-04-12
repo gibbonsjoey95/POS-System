@@ -123,10 +123,14 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       active: item[0].active,
       toppings: [
         {
-          name: 'Onions',
+          name: 'Original Sauce',
         },
         {
-          name: 'Pineapple',
+          name: 'Bacon',
+        },
+        { name: 'Spinach' },
+        {
+          name: 'Cheddar',
         },
       ],
     };

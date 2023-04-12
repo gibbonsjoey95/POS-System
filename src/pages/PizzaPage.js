@@ -96,11 +96,20 @@ const PizzaPage = ({
 
   // refactor later
   useEffect(() => {
+    let findActiveCheeseName = [];
+    let findActiveSauceName = [];
     let findActiveMeatName = [];
     let findActiveVeggieName = [];
 
-    console.log('activeToppings', activeToppings.length);
     for (let i = 0; i < activeToppings.length; i++) {
+      let cheeseName = cheeseOn.find(
+        (cheese) => cheese.name === activeToppings[i].name
+      );
+
+      let sauceName = sauceOn.find(
+        (sauce) => sauce.name === activeToppings[i].name
+      );
+
       let meatName = meatOn.find(
         (meat) => meat.name === activeToppings[i].name
       );
@@ -109,9 +118,23 @@ const PizzaPage = ({
         (veggie) => veggie.name === activeToppings[i].name
       );
 
+      findActiveCheeseName.push(cheeseName);
+      findActiveSauceName.push(sauceName);
       findActiveMeatName.push(meatName);
       findActiveVeggieName.push(veggieName);
     }
+
+    setCheeseOn((prevCheeseOn) => {
+      return prevCheeseOn.map((cheese) => {
+        return { ...cheese, active: false };
+      });
+    });
+
+    setSauceOn((prevSauceOn) => {
+      return prevSauceOn.map((sauce) => {
+        return { ...sauce, active: false };
+      });
+    });
 
     setMeatOn((prevMeatOn) => {
       return prevMeatOn.map((meat) => {
@@ -125,7 +148,58 @@ const PizzaPage = ({
       });
     });
 
-    findActiveMeatName.forEach((activeMeat) => {
+    const allActiveCheeses = findActiveCheeseName.filter(
+      (cheese) => cheese !== undefined
+    );
+
+    const allActiveSauces = findActiveSauceName.filter(
+      (sauce) => sauce !== undefined
+    );
+
+    const allActiveMeats = findActiveMeatName.filter(
+      (meat) => meat !== undefined
+    );
+    const allActiveVeggies = findActiveVeggieName.filter(
+      (veggie) => veggie !== undefined
+    );
+
+    allActiveCheeses.forEach((activeCheese) => {
+      if (activeCheese) {
+        setCheeseOn((prevCheeseOn) => {
+          return prevCheeseOn.map((cheese) => {
+            return cheese._id === activeCheese._id
+              ? { ...cheese, active: true }
+              : cheese;
+          });
+        });
+      } else {
+        setCheeseOn((prevCheeseOn) => {
+          return prevCheeseOn((cheese) => {
+            return { ...cheese, active: false };
+          });
+        });
+      }
+    });
+
+    allActiveSauces.forEach((activeSauce) => {
+      if (activeSauce) {
+        setSauceOn((prevSauceOn) => {
+          return prevSauceOn.map((sauce) => {
+            return sauce._id === activeSauce._id
+              ? { ...sauce, active: true }
+              : sauce;
+          });
+        });
+      } else {
+        setSauceOn((prevSauceOn) => {
+          return prevSauceOn((sauce) => {
+            return { ...sauce, active: false };
+          });
+        });
+      }
+    });
+
+    allActiveMeats.forEach((activeMeat) => {
       if (activeMeat) {
         setMeatOn((prevMeatOn) => {
           return prevMeatOn.map((meat) => {
@@ -143,8 +217,7 @@ const PizzaPage = ({
       }
     });
 
-    console.log(findActiveVeggieName);
-    findActiveVeggieName.forEach((activeVeggie) => {
+    allActiveVeggies.forEach((activeVeggie) => {
       if (activeVeggie) {
         setVeggieOn((prevVeggieOn) => {
           return prevVeggieOn.map((veggie) => {
@@ -161,8 +234,6 @@ const PizzaPage = ({
         });
       }
     });
-
-    console.log('findActiveMeatName', findActiveMeatName);
   }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
@@ -281,8 +352,8 @@ const PizzaPage = ({
             {pizzaToppingType}
           </div>
           <div className='toppings'>
-            {toppingType[0].active && pizzaSauceTopping}
-            {toppingType[1].active && pizzaCheeseTopping}
+            {toppingType[1].active && pizzaSauceTopping}
+            {toppingType[0].active && pizzaCheeseTopping}
             {toppingType[2].active && pizzaMeatTopping}
             {toppingType[3].active && pizzaVeggieTopping}
           </div>
