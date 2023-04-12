@@ -96,10 +96,73 @@ const PizzaPage = ({
 
   // refactor later
   useEffect(() => {
+    let findActiveMeatName = [];
+    let findActiveVeggieName = [];
+
     console.log('activeToppings', activeToppings.length);
     for (let i = 0; i < activeToppings.length; i++) {
-      console.log(activeToppings[i]);
+      let meatName = meatOn.find(
+        (meat) => meat.name === activeToppings[i].name
+      );
+
+      let veggieName = veggieOn.find(
+        (veggie) => veggie.name === activeToppings[i].name
+      );
+
+      findActiveMeatName.push(meatName);
+      findActiveVeggieName.push(veggieName);
     }
+
+    setMeatOn((prevMeatOn) => {
+      return prevMeatOn.map((meat) => {
+        return { ...meat, active: false };
+      });
+    });
+
+    setVeggieOn((prevVeggieOn) => {
+      return prevVeggieOn.map((veggie) => {
+        return { ...veggie, active: false };
+      });
+    });
+
+    findActiveMeatName.forEach((activeMeat) => {
+      if (activeMeat) {
+        setMeatOn((prevMeatOn) => {
+          return prevMeatOn.map((meat) => {
+            return meat._id === activeMeat._id
+              ? { ...meat, active: true }
+              : meat;
+          });
+        });
+      } else {
+        setMeatOn((prevMeatOn) => {
+          return prevMeatOn((meat) => {
+            return { ...meat, active: false };
+          });
+        });
+      }
+    });
+
+    console.log(findActiveVeggieName);
+    findActiveVeggieName.forEach((activeVeggie) => {
+      if (activeVeggie) {
+        setVeggieOn((prevVeggieOn) => {
+          return prevVeggieOn.map((veggie) => {
+            return veggie._id === activeVeggie._id
+              ? { ...veggie, active: true }
+              : veggie;
+          });
+        });
+      } else {
+        setVeggieOn((prevVeggieOn) => {
+          return prevVeggieOn((veggie) => {
+            return { ...veggie, active: false };
+          });
+        });
+      }
+    });
+
+    console.log('findActiveMeatName', findActiveMeatName);
   }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
