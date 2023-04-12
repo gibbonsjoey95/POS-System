@@ -41,12 +41,37 @@ const PizzaPage = ({
         return { ...crust, active: false };
       });
 
+      setCheeseOn((prevCheeseOn) => {
+        return prevCheeseOn.map((cheese) => {
+          return { ...cheese, active: false };
+        });
+      });
+
+      setSauceOn((prevSauceOn) => {
+        return prevSauceOn.map((sauce) => {
+          return { ...sauce, active: false };
+        });
+      });
+
+      setMeatOn((prevMeatOn) => {
+        return prevMeatOn.map((meat) => {
+          return { ...meat, active: false };
+        });
+      });
+
+      setVeggieOn((prevVeggieOn) => {
+        return prevVeggieOn.map((veggie) => {
+          return { ...veggie, active: false };
+        });
+      });
+
       setSizeOn(updatedSizes);
       setCrustOn(updatedCrust);
 
       // look into why this is necessary
       setActiveSize('No active size');
       setActiveCrust('No active crust');
+      setActiveToppings('No active toppings');
     }
   }, [item]);
 
