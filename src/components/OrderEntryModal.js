@@ -20,9 +20,9 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const [title, setTitle] = useState('');
   const [page, setPage] = useState('');
 
-  const [activeSize, setActiveSize] = useState('');
-  const [activeCrust, setActiveCrust] = useState('');
-  const [activeToppings, setActiveToppings] = useState('');
+  const [activeSize, setActiveSize] = useState([]);
+  const [activeCrust, setActiveCrust] = useState([]);
+  const [activeToppings, setActiveToppings] = useState([]);
 
   const [products, setProducts] = useState([]);
 
@@ -59,7 +59,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   useEffect(() => {
     const activeItem = item.find((item) => item.active);
-    console.log('activeItem', activeItem);
 
     if (activeItem) {
       setActiveSize(activeItem.size);
@@ -118,7 +117,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const addNewOrderItem = () => {
     const itemObject = {
       size: 'Large',
-      crust: item[0].crust,
+      crust: 'Pan',
       price: 7.99,
       active: item[0].active,
       toppings: [

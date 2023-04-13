@@ -28,237 +28,104 @@ const PizzaPage = ({
   // console.log('activeSize outside', activeSize);
   // console.log('item', item);
 
-  // refactor later
+  const resetActiveButtons = (array) => {
+    return array.map((item) => ({ ...item, active: false }));
+  };
+
   useEffect(() => {
     const noActiveItems = item.every((item) => item.active === false);
 
     if (noActiveItems) {
-      const updatedSizes = sizeOn.map((size) => {
-        return { ...size, active: false };
-      });
+      setSizeOn(resetActiveButtons(sizeOn));
+      setCrustOn(resetActiveButtons(crustOn));
+      setCheeseOn(resetActiveButtons(cheeseOn));
+      setSauceOn(resetActiveButtons(sauceOn));
+      setMeatOn(resetActiveButtons(meatOn));
+      setVeggieOn(resetActiveButtons(veggieOn));
 
-      const updatedCrust = crustOn.map((crust) => {
-        return { ...crust, active: false };
-      });
-
-      setCheeseOn((prevCheeseOn) => {
-        return prevCheeseOn.map((cheese) => {
-          return { ...cheese, active: false };
-        });
-      });
-
-      setSauceOn((prevSauceOn) => {
-        return prevSauceOn.map((sauce) => {
-          return { ...sauce, active: false };
-        });
-      });
-
-      setMeatOn((prevMeatOn) => {
-        return prevMeatOn.map((meat) => {
-          return { ...meat, active: false };
-        });
-      });
-
-      setVeggieOn((prevVeggieOn) => {
-        return prevVeggieOn.map((veggie) => {
-          return { ...veggie, active: false };
-        });
-      });
-
-      setSizeOn(updatedSizes);
-      setCrustOn(updatedCrust);
-
-      // look into why this is necessary
-      setActiveSize('No active size');
-      setActiveCrust('No active crust');
-      setActiveToppings('No active toppings');
+      // this resets the setActives so that you can click the same button again and it will immediatley work
+      setActiveSize([]);
+      setActiveCrust([]);
+      setActiveToppings([]);
     }
-  }, [item]);
+  }, [
+    item,
+    setSizeOn,
+    setCrustOn,
+    setCheeseOn,
+    setSauceOn,
+    setMeatOn,
+    setVeggieOn,
+  ]);
 
-  // Refactor later
+  // This will find the size of the active item, then turn on the correct size button turning off the incorrect ones
   useEffect(() => {
     const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
 
-    if (findActiveSizeName) {
-      setSizeOn((prevSizeOn) => {
-        return prevSizeOn.map((size) => {
-          return size._id === findActiveSizeName._id
-            ? { ...size, active: true }
-            : { ...size, active: false };
-        });
+    setSizeOn((prevSizeOn) => {
+      return prevSizeOn.map((size) => {
+        return size._id === (findActiveSizeName ? findActiveSizeName._id : null)
+          ? { ...size, active: true }
+          : { ...size, active: false };
       });
-    } else {
-      setSizeOn((prevSizeOn) => {
-        return prevSizeOn.map((size) => {
-          return { ...size, active: false };
-        });
-      });
-    }
-  }, [activeSize]);
+    });
+  }, [activeSize, setSizeOn]);
 
-  // Refactor later
+  // This will find the crust of the active item, then turn on the correct crust button turning off the incorrect ones
   useEffect(() => {
-    const findActiveCrustName = crustOn.find(
-      (crust) => crust.name === activeCrust
+    setCrustOn((prevCrustOn) =>
+      prevCrustOn.map((crust) =>
+        crust.name === activeCrust
+          ? { ...crust, active: true }
+          : { ...crust, active: false }
+      )
     );
+  }, [activeCrust, setCrustOn]);
 
-    if (findActiveCrustName) {
-      setCrustOn((prevCrustOn) => {
-        return prevCrustOn.map((crust) => {
-          return crust._id === findActiveCrustName._id
-            ? { ...crust, active: true }
-            : { ...crust, active: false };
-        });
-      });
-    } else {
-      setCrustOn((prevCrustOn) => {
-        return prevCrustOn.map((crust) => {
-          return { ...crust, active: false };
-        });
-      });
-    }
-  }, [activeCrust]);
-
-  // refactor later
+  // looks at toppings in item, then turns present toppings active and other not active
   useEffect(() => {
-    let findActiveCheeseName = [];
-    let findActiveSauceName = [];
-    let findActiveMeatName = [];
-    let findActiveVeggieName = [];
-
-    for (let i = 0; i < activeToppings.length; i++) {
-      let cheeseName = cheeseOn.find(
-        (cheese) => cheese.name === activeToppings[i].name
-      );
-
-      let sauceName = sauceOn.find(
-        (sauce) => sauce.name === activeToppings[i].name
-      );
-
-      let meatName = meatOn.find(
-        (meat) => meat.name === activeToppings[i].name
-      );
-
-      let veggieName = veggieOn.find(
-        (veggie) => veggie.name === activeToppings[i].name
-      );
-
-      findActiveCheeseName.push(cheeseName);
-      findActiveSauceName.push(sauceName);
-      findActiveMeatName.push(meatName);
-      findActiveVeggieName.push(veggieName);
-    }
-
-    setCheeseOn((prevCheeseOn) => {
-      return prevCheeseOn.map((cheese) => {
-        return { ...cheese, active: false };
+    const findActiveToppings = (toppingsOn, activeToppings) => {
+      if (!activeToppings || activeToppings.length === 0) {
+        return [];
+      }
+      return activeToppings.flatMap((activeTopping) => {
+        return toppingsOn.find(
+          (topping) => topping.name === activeTopping.name
+        );
       });
-    });
+    };
 
-    setSauceOn((prevSauceOn) => {
-      return prevSauceOn.map((sauce) => {
-        return { ...sauce, active: false };
+    const activateToppings = (toppingsOn, activeToppings) => {
+      return toppingsOn.map((topping) => {
+        const isActive = activeToppings.some((activeTopping) => {
+          return activeTopping.name === topping.name;
+        });
+        return { ...topping, active: isActive };
       });
-    });
+    };
 
-    setMeatOn((prevMeatOn) => {
-      return prevMeatOn.map((meat) => {
-        return { ...meat, active: false };
-      });
-    });
+    const activeCheeses = findActiveToppings(cheeseOn, activeToppings);
+    const activeSauces = findActiveToppings(sauceOn, activeToppings);
+    const activeMeats = findActiveToppings(meatOn, activeToppings);
+    const activeVeggies = findActiveToppings(veggieOn, activeToppings);
 
-    setVeggieOn((prevVeggieOn) => {
-      return prevVeggieOn.map((veggie) => {
-        return { ...veggie, active: false };
-      });
-    });
-
-    const allActiveCheeses = findActiveCheeseName.filter(
+    const activeCheesesFiltered = activeCheeses.filter(
       (cheese) => cheese !== undefined
     );
-
-    const allActiveSauces = findActiveSauceName.filter(
+    const activeSaucesFiltered = activeSauces.filter(
       (sauce) => sauce !== undefined
     );
-
-    const allActiveMeats = findActiveMeatName.filter(
+    const activeMeatsFiltered = activeMeats.filter(
       (meat) => meat !== undefined
     );
-    const allActiveVeggies = findActiveVeggieName.filter(
+    const activeVeggiesFiltered = activeVeggies.filter(
       (veggie) => veggie !== undefined
     );
 
-    allActiveCheeses.forEach((activeCheese) => {
-      if (activeCheese) {
-        setCheeseOn((prevCheeseOn) => {
-          return prevCheeseOn.map((cheese) => {
-            return cheese._id === activeCheese._id
-              ? { ...cheese, active: true }
-              : cheese;
-          });
-        });
-      } else {
-        setCheeseOn((prevCheeseOn) => {
-          return prevCheeseOn((cheese) => {
-            return { ...cheese, active: false };
-          });
-        });
-      }
-    });
-
-    allActiveSauces.forEach((activeSauce) => {
-      if (activeSauce) {
-        setSauceOn((prevSauceOn) => {
-          return prevSauceOn.map((sauce) => {
-            return sauce._id === activeSauce._id
-              ? { ...sauce, active: true }
-              : sauce;
-          });
-        });
-      } else {
-        setSauceOn((prevSauceOn) => {
-          return prevSauceOn((sauce) => {
-            return { ...sauce, active: false };
-          });
-        });
-      }
-    });
-
-    allActiveMeats.forEach((activeMeat) => {
-      if (activeMeat) {
-        setMeatOn((prevMeatOn) => {
-          return prevMeatOn.map((meat) => {
-            return meat._id === activeMeat._id
-              ? { ...meat, active: true }
-              : meat;
-          });
-        });
-      } else {
-        setMeatOn((prevMeatOn) => {
-          return prevMeatOn((meat) => {
-            return { ...meat, active: false };
-          });
-        });
-      }
-    });
-
-    allActiveVeggies.forEach((activeVeggie) => {
-      if (activeVeggie) {
-        setVeggieOn((prevVeggieOn) => {
-          return prevVeggieOn.map((veggie) => {
-            return veggie._id === activeVeggie._id
-              ? { ...veggie, active: true }
-              : veggie;
-          });
-        });
-      } else {
-        setVeggieOn((prevVeggieOn) => {
-          return prevVeggieOn((veggie) => {
-            return { ...veggie, active: false };
-          });
-        });
-      }
-    });
+    setCheeseOn(activateToppings(cheeseOn, activeCheesesFiltered));
+    setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
+    setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
+    setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
   }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
