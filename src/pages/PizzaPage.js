@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 const PizzaPage = ({
   activeSize,
   setActiveSize,
+  // setSize, this sets the initial pizza size
   activeCrust,
   setActiveCrust,
   activeToppings,
   setActiveToppings,
   products,
   item,
+  setItem,
 }) => {
   const [sizeOn, setSizeOn] = useState(products.sizes);
   const [crustOn, setCrustOn] = useState(products.crusts);
@@ -19,14 +21,41 @@ const PizzaPage = ({
   const [meatOn, setMeatOn] = useState(products.toppings.meats);
   const [veggieOn, setVeggieOn] = useState(products.toppings.veggies);
 
-  // will use this to update order item
-  // useEffect(() => {
-  //   const activeSize = sizeOn.find((size) => size.active);
-  //   // console.log('Active size:', activeSize);
-  // }, [sizeOn]);
+  // changes size on active item
+  useEffect(() => {
+    const findActiveItem = item.find((item) => item.active);
+    const findActiveSizeName = sizeOn.find((size) => size.active);
+    if (findActiveItem && findActiveSizeName) {
+      const updatedItem = { ...findActiveItem, size: findActiveSizeName.name };
+      const updatedItems = item.map((oldItem) => {
+        if (oldItem._id === updatedItem._id) {
+          return updatedItem;
+        } else {
+          return oldItem;
+        }
+      });
+      setItem(updatedItems);
+    }
+  }, [sizeOn]);
 
-  // console.log('activeSize outside', activeSize);
-  // console.log('item', item);
+  useEffect(() => {
+    const findActiveItem = item.find((item) => item.active);
+    const findActiveCrustName = crustOn.find((crust) => crust.active);
+    if (findActiveItem && findActiveCrustName) {
+      const updatedItem = {
+        ...findActiveItem,
+        crust: findActiveCrustName.name,
+      };
+      const updatedItems = item.map((oldItem) => {
+        if (oldItem._id === updatedItem._id) {
+          return updatedItem;
+        } else {
+          return oldItem;
+        }
+      });
+      setItem(updatedItems);
+    }
+  }, [crustOn]);
 
   const resetActiveButtons = (array) => {
     return array.map((item) => ({ ...item, active: false }));
