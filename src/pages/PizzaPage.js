@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 const PizzaPage = ({
   activeSize,
   setActiveSize,
-  // setSize, this sets the initial pizza size
   activeCrust,
   setActiveCrust,
   activeToppings,
@@ -38,6 +37,7 @@ const PizzaPage = ({
     }
   }, [sizeOn]);
 
+  // changes crust on active item
   useEffect(() => {
     const findActiveItem = item.find((item) => item.active);
     const findActiveCrustName = crustOn.find((crust) => crust.active);
@@ -56,6 +56,39 @@ const PizzaPage = ({
       setItem(updatedItems);
     }
   }, [crustOn]);
+
+  useEffect(() => {
+    const allToppings = [...sauceOn, ...cheeseOn, ...meatOn, ...veggieOn];
+    const findActiveItem = item.find((item) => item.active);
+    const findActiveToppings = allToppings.filter((topping) => topping.active);
+    // const findActiveToppingNames = findActiveToppings.map(
+    //   (topping) => topping.name
+    // );
+
+    if (findActiveItem && findActiveToppingNames) {
+      const updatedItem = {
+        ...findActiveItem,
+        toppings: findActiveToppings,
+      };
+
+      const updatedItems = item.map((oldItem) => {
+        if (oldItem._id === updatedItem._id) {
+          console.log(updatedItem);
+        } else {
+          console.log(oldItem);
+        }
+      });
+
+      // const updatedItems = item.map((oldItem) => {
+      //   if (oldItem._id === updatedItem._id) {
+      //     return updatedItem;
+      //   } else {
+      //     return oldItem;
+      //   }
+      // });
+      // setItem(updatedItems);
+    }
+  }, [sauceOn, cheeseOn, meatOn, veggieOn]);
 
   const resetActiveButtons = (array) => {
     return array.map((item) => ({ ...item, active: false }));

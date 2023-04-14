@@ -25,8 +25,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const [activeToppings, setActiveToppings] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const [size, setSize] = useState('');
-
   const togglePageLink = (id) => {
     for (let i = 0; i < linkTo.length; i++) {
       if (linkTo[i].id === id) {
@@ -117,7 +115,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
 
   const addNewOrderItem = () => {
     const itemObject = {
-      size: size,
+      size: 'Missing Size',
       crust: 'Pan',
       price: 7.99,
       active: item[0].active,
@@ -224,7 +222,6 @@ const OrderEntryModal = ({ setOpenLogin }) => {
           <PizzaPage
             activeSize={activeSize}
             setActiveSize={setActiveSize}
-            setSize={setSize}
             activeCrust={activeCrust}
             setActiveCrust={setActiveCrust}
             activeToppings={activeToppings}
