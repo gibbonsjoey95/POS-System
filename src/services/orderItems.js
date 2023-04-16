@@ -16,16 +16,17 @@ const deleteOrderItem = (id) => {
   return request.then((response) => response.data);
 };
 
-const updateItem = (id, newObject) => {
-  const request = axios.patch(`${baseUrl}/${id}`, newObject);
-  return request.then((response) => response.data);
-};
+// where i thought i was going to have to use this, im not going to have to.
+// const updateItem = (id, newObject) => {
+//   const request = axios.patch(`${baseUrl}/${id}`, newObject);
+//   return request.then((response) => response.data);
+// };
 
 const itemService = {
   getAllOrderItems,
   createOrderItem,
   deleteOrderItem,
-  updateItem,
+  // updateItem,
 };
 
 export default itemService;
