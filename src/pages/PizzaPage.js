@@ -20,6 +20,8 @@ const PizzaPage = ({
   const [meatOn, setMeatOn] = useState(products.toppings.meats);
   const [veggieOn, setVeggieOn] = useState(products.toppings.veggies);
 
+  console.log('item', item);
+
   // changes size on active item
   useEffect(() => {
     const findActiveItem = item.find((item) => item.active);
@@ -58,12 +60,15 @@ const PizzaPage = ({
   }, [crustOn]);
 
   useEffect(() => {
+    const activeSauces = sauceOn.filter((sauce) => sauce.active);
+    console.log(activeSauces);
+
     const allToppings = [...sauceOn, ...cheeseOn, ...meatOn, ...veggieOn];
     const findActiveItem = item.find((item) => item.active);
     const findActiveToppings = allToppings.filter((topping) => topping.active);
-    // const findActiveToppingNames = findActiveToppings.map(
-    //   (topping) => topping.name
-    // );
+    const findActiveToppingNames = findActiveToppings.map(
+      (topping) => topping.name
+    );
 
     if (findActiveItem && findActiveToppingNames) {
       const updatedItem = {
@@ -73,22 +78,21 @@ const PizzaPage = ({
 
       const updatedItems = item.map((oldItem) => {
         if (oldItem._id === updatedItem._id) {
-          console.log(updatedItem);
+          console.log('updatedItem', updatedItem);
         } else {
-          console.log(oldItem);
+          console.log('oldItem');
         }
       });
-
-      // const updatedItems = item.map((oldItem) => {
-      //   if (oldItem._id === updatedItem._id) {
-      //     return updatedItem;
-      //   } else {
-      //     return oldItem;
-      //   }
-      // });
-      // setItem(updatedItems);
+      setItem(updatedItems);
     }
-  }, [sauceOn, cheeseOn, meatOn, veggieOn]);
+  }, [setSauceOn]);
+
+  // useEffect(() => {
+  //   const findActiveItem = item.find((item) => item.active);
+  //   const findActiveSauce = sauceOn.filter((sauce) => sauce.active);
+
+  //   console.log('findActiveSauce', findActiveSauce);
+  // }, [sauceOn]);
 
   const resetActiveButtons = (array) => {
     return array.map((item) => ({ ...item, active: false }));
@@ -189,6 +193,7 @@ const PizzaPage = ({
     setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
     setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
   }, [activeToppings]);
+  console.log('activeToppings', activeToppings);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {

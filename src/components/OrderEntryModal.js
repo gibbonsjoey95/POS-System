@@ -119,18 +119,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       crust: 'Pan',
       price: 7.99,
       active: item[0].active,
-      toppings: [
-        {
-          name: 'Original Sauce',
-        },
-        {
-          name: 'Bacon',
-        },
-        { name: 'Spinach' },
-        {
-          name: 'Cheddar',
-        },
-      ],
+      toppings: [],
     };
 
     itemService
