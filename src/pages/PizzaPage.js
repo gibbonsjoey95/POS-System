@@ -206,7 +206,7 @@ const PizzaPage = ({
     );
 
     setCheeseOn(activateToppings(cheeseOn, activeCheesesFiltered));
-    // setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
+    setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
     setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
     setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
   }, [activeToppings]);
