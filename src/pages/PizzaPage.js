@@ -83,33 +83,27 @@ const PizzaPage = ({
   //     });
   //     setItem(updatedItems);
   //   }
-  // }, [setSauceOn]);
+  // }, [sauceOn, cheeseOn, meatOn, veggieOn]);
 
-  useEffect(() => {
-    const findActiveItem = item.find((item) => item.active);
-    const findActiveSauce = sauceOn.filter((sauce) => sauce.active);
-    console.log('findActiveSauce', findActiveSauce);
-    console.log('item', item);
+  // useEffect(() => {
+  //   const findActiveItem = item.find((item) => item.active);
+  //   const findActiveSauce = sauceOn.filter((sauce) => sauce.active);
 
-    if (findActiveItem && findActiveSauce) {
-      const updatedItem = {
-        ...findActiveItem,
-        toppings: findActiveSauce,
-      };
-
-      console.log('updatedItem', updatedItem);
-
-      const updatedItems = item.map((oldItem) => {
-        if (oldItem._id === updatedItem._id) {
-          return updatedItem;
-        } else {
-          return oldItem;
-        }
-      });
-      console.log('updatedItems', updatedItems);
-      setItem(updatedItems);
-    }
-  }, [setItem, sauceOn]);
+  //   if (findActiveItem && findActiveSauce) {
+  //     const updatedItem = {
+  //       ...findActiveItem,
+  //       toppings: findActiveSauce,
+  //     };
+  //     const updatedItems = item.map((oldItem) => {
+  //       if (oldItem._id === updatedItem._id) {
+  //         return updatedItem;
+  //       } else {
+  //         return oldItem;
+  //       }
+  //     });
+  //     setItem(updatedItems);
+  //   }
+  // }, [sauceOn, setItem]);
 
   const resetActiveButtons = (array) => {
     return array.map((item) => ({ ...item, active: false }));
@@ -143,15 +137,13 @@ const PizzaPage = ({
 
   // This will find the size of the active item, then turn on the correct size button turning off the incorrect ones
   useEffect(() => {
-    const findActiveSizeName = sizeOn.find((size) => size.name === activeSize);
-
-    setSizeOn((prevSizeOn) => {
-      return prevSizeOn.map((size) => {
-        return size._id === (findActiveSizeName ? findActiveSizeName._id : null)
+    setSizeOn((prevSizeOn) =>
+      prevSizeOn.map((size) =>
+        size.name === activeSize
           ? { ...size, active: true }
-          : { ...size, active: false };
-      });
-    });
+          : { ...size, active: false }
+      )
+    );
   }, [activeSize, setSizeOn]);
 
   // This will find the crust of the active item, then turn on the correct crust button turning off the incorrect ones
@@ -209,6 +201,8 @@ const PizzaPage = ({
     setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
     setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
     setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
+
+    console.log('activeToppings', activeToppings);
   }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
