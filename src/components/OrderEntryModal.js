@@ -116,7 +116,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
   const addNewOrderItem = () => {
     const itemObject = {
       size: 'Missing Size',
-      crust: 'Pan',
+      crust: 'Missing Crust',
       price: 7.99,
       active: item[0].active,
       toppings: [],

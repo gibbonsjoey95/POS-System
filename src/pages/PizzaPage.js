@@ -57,33 +57,30 @@ const PizzaPage = ({
     }
   }, [crustOn, setItem]);
 
-  // useEffect(() => {
-  //   const activeSauces = sauceOn.filter((sauce) => sauce.active);
-  //   console.log(activeSauces);
+  useEffect(() => {
+    const allToppings = [...sauceOn, ...cheeseOn, ...meatOn, ...veggieOn];
+    const findActiveItem = item.find((item) => item.active);
+    const findActiveToppings = allToppings.filter((topping) => topping.active);
+    const findActiveToppingNames = findActiveToppings.map(
+      (topping) => topping.name
+    );
 
-  //   const allToppings = [...sauceOn, ...cheeseOn, ...meatOn, ...veggieOn];
-  //   const findActiveItem = item.find((item) => item.active);
-  //   const findActiveToppings = allToppings.filter((topping) => topping.active);
-  //   const findActiveToppingNames = findActiveToppings.map(
-  //     (topping) => topping.name
-  //   );
+    if (findActiveItem && findActiveToppingNames) {
+      const updatedItem = {
+        ...findActiveItem,
+        toppings: findActiveToppings,
+      };
 
-  //   if (findActiveItem && findActiveToppingNames) {
-  //     const updatedItem = {
-  //       ...findActiveItem,
-  //       toppings: findActiveToppings,
-  //     };
-
-  //     const updatedItems = item.map((oldItem) => {
-  //       if (oldItem._id === updatedItem._id) {
-  //         console.log('updatedItem', updatedItem);
-  //       } else {
-  //         console.log('oldItem');
-  //       }
-  //     });
-  //     setItem(updatedItems);
-  //   }
-  // }, [sauceOn, cheeseOn, meatOn, veggieOn]);
+      const updatedItems = item.map((oldItem) => {
+        if (oldItem._id === updatedItem._id) {
+          return updatedItem;
+        } else {
+          return oldItem;
+        }
+      });
+      setItem(updatedItems);
+    }
+  }, [setItem, sauceOn, cheeseOn, meatOn, veggieOn]);
 
   // useEffect(() => {
   //   const findActiveItem = item.find((item) => item.active);
