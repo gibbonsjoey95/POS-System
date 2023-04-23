@@ -118,7 +118,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
       size: 'Missing Size',
       crust: 'Missing Crust',
       price: 7.99,
-      active: item[0].active,
+      active: false,
       toppings: [],
     };
 

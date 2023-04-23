@@ -65,6 +65,11 @@ const PizzaPage = ({
       (topping) => topping.name
     );
 
+    console.log('findActiveItem', findActiveItem);
+
+    console.log('findActiveToppingNames', findActiveToppingNames);
+    console.log('activeToppings', activeToppings);
+
     if (findActiveItem && findActiveToppingNames) {
       const updatedItem = {
         ...findActiveItem,
@@ -80,6 +85,10 @@ const PizzaPage = ({
       });
       setItem(updatedItems);
     }
+
+    // console.log('activeToppings', activeToppings);
+    // console.log('sauceOn', sauceOn);
+    // console.log('item', item);
   }, [setItem, sauceOn, cheeseOn, meatOn, veggieOn]);
 
   // useEffect(() => {
@@ -155,52 +164,61 @@ const PizzaPage = ({
   }, [activeCrust, setCrustOn]);
 
   // looks at toppings in item, then turns present toppings active and other not active
-  useEffect(() => {
-    const findActiveToppings = (toppingsOn, activeToppings) => {
-      if (!activeToppings || activeToppings.length === 0) {
-        return [];
-      }
-      return activeToppings.flatMap((activeTopping) => {
-        return toppingsOn.find(
-          (topping) => topping.name === activeTopping.name
-        );
-      });
-    };
+  // useEffect(() => {
+  //   const findActiveToppings = (toppingsOn, activeToppings) => {
+  //     if (!activeToppings || activeToppings.length === 0) {
+  //       return [];
+  //     }
+  //     return activeToppings.flatMap((activeTopping) => {
+  //       return toppingsOn.find(
+  //         (topping) => topping.name === activeTopping.name
+  //       );
+  //     });
+  //   };
 
-    const activateToppings = (toppingsOn, activeToppings) => {
-      return toppingsOn.map((topping) => {
-        const isActive = activeToppings.some((activeTopping) => {
-          return activeTopping.name === topping.name;
-        });
-        return { ...topping, active: isActive };
-      });
-    };
+  //   const activateToppings = (toppingsOn, activeToppings) => {
+  //     return toppingsOn.map((topping) => {
+  //       const isActive = activeToppings.some((activeTopping) => {
+  //         return activeTopping.name === topping.name;
+  //       });
+  //       return { ...topping, active: isActive };
+  //     });
+  //   };
 
-    const activeCheeses = findActiveToppings(cheeseOn, activeToppings);
-    const activeSauces = findActiveToppings(sauceOn, activeToppings);
-    const activeMeats = findActiveToppings(meatOn, activeToppings);
-    const activeVeggies = findActiveToppings(veggieOn, activeToppings);
+  //   const activeCheeses = findActiveToppings(cheeseOn, activeToppings);
+  //   const activeSauces = findActiveToppings(sauceOn, activeToppings);
+  //   const activeMeats = findActiveToppings(meatOn, activeToppings);
+  //   const activeVeggies = findActiveToppings(veggieOn, activeToppings);
 
-    const activeCheesesFiltered = activeCheeses.filter(
-      (cheese) => cheese !== undefined
-    );
-    const activeSaucesFiltered = activeSauces.filter(
-      (sauce) => sauce !== undefined
-    );
-    const activeMeatsFiltered = activeMeats.filter(
-      (meat) => meat !== undefined
-    );
-    const activeVeggiesFiltered = activeVeggies.filter(
-      (veggie) => veggie !== undefined
-    );
+  //   const activeCheesesFiltered = activeCheeses.filter(
+  //     (cheese) => cheese !== undefined
+  //   );
+  //   const activeSaucesFiltered = activeSauces.filter(
+  //     (sauce) => sauce !== undefined
+  //   );
+  //   const activeMeatsFiltered = activeMeats.filter(
+  //     (meat) => meat !== undefined
+  //   );
+  //   const activeVeggiesFiltered = activeVeggies.filter(
+  //     (veggie) => veggie !== undefined
+  //   );
 
-    setCheeseOn(activateToppings(cheeseOn, activeCheesesFiltered));
-    setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
-    setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
-    setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
+  //   setCheeseOn(activateToppings(cheeseOn, activeCheesesFiltered));
+  //   setSauceOn(activateToppings(sauceOn, activeSaucesFiltered));
+  //   setMeatOn(activateToppings(meatOn, activeMeatsFiltered));
+  //   setVeggieOn(activateToppings(veggieOn, activeVeggiesFiltered));
 
-    console.log('activeToppings', activeToppings);
-  }, [activeToppings]);
+  //   console.log('activeToppings', activeToppings);
+  // }, [activeToppings]);
+
+  // no idea what i was doing here
+  // useEffect(() => {
+  //   console.log('activeToppings2', activeToppings);
+
+  //   const activeSauces = sauceOn.filter((sauce) => sauce.active);
+
+  //   console.log('activeSauces', activeSauces);
+  // }, [activeToppings]);
 
   const toggleOption = (setFunction, id) => {
     setFunction((prev) => {
