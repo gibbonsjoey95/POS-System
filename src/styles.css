@@ -308,3 +308,19 @@ input::-webkit-inner-spin-button {
   align-items: space-evenly;
   flex-wrap: wrap;
 }
+
+.container--payments {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.payments--options {
+  border: 1px solid green;
+  margin: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

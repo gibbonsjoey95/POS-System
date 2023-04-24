@@ -182,9 +182,15 @@ const OrderEntryModal = ({ setOpenLogin }) => {
     handleActiveItemClick('up');
   };
 
-  // const handleChangeSize = () => {
-  //   console.log('Yes');
-  // };
+  const getOrderTotal = () => {
+    let initialTotal = 0;
+
+    for (let i = 0; i < item.length; i++) {
+      initialTotal += item[i].price;
+    }
+
+    return initialTotal.toFixed(2);
+  };
 
   return (
     <div className='order-container'>
@@ -195,7 +201,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
         </div>
         <OrderInfo
           items={item}
-          // getOrderTotal={getOrderTotal()}
+          orderTotal={getOrderTotal}
           onDownClick={moveActiveDown}
           onUpClick={moveActiveUp}
         />
@@ -220,7 +226,7 @@ const OrderEntryModal = ({ setOpenLogin }) => {
             setItem={setItem}
           />
         )}
-        {page === 'Payments' && <PaymentsPage />}
+        {page === 'Payments' && <PaymentsPage orderTotal={getOrderTotal} />}
         {page === 'Finish' && <FinishPage />}
       </div>
       <div className='order-task-list'>
