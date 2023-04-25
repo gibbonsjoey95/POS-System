@@ -3,6 +3,7 @@ import NumericKeypad from '../NumericKeypad';
 const CreditCardInput = ({ handleCreditCardChange, creditCardInfo }) => {
   const handleChange = (e) => {
     console.log(e.target.value);
+    handleCreditCardChange(e.target.name, e.target.value);
   };
 
   return (
@@ -15,7 +16,7 @@ const CreditCardInput = ({ handleCreditCardChange, creditCardInfo }) => {
         type='text'
         id='cardNumber'
         name='cardNumber'
-        // value={creditCardInfo.cardNumber}
+        value={creditCardInfo.cardNumber}
         onChange={handleChange}
         maxLength='16'
         minLength='16'
@@ -27,7 +28,7 @@ const CreditCardInput = ({ handleCreditCardChange, creditCardInfo }) => {
         type='text'
         id='expirationDate'
         name='expirationDate'
-        // value={creditCardInfo.expirationDate}
+        value={creditCardInfo.expirationDate}
         onChange={handleChange}
         maxLength='5'
         minLength='5'
@@ -39,7 +40,7 @@ const CreditCardInput = ({ handleCreditCardChange, creditCardInfo }) => {
         type='text'
         id='cvv'
         name='cvv'
-        // value={creditCardInfo.cvv}
+        value={creditCardInfo.cvv}
         onChange={handleChange}
         maxLength='3'
         minLength='3'

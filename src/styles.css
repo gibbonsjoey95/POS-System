@@ -324,3 +324,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-around;
 }
+
+.payments--order-total {
+  font-size: 2.5rem;
+  margin-top: 25px
+}

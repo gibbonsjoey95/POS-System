@@ -4,12 +4,24 @@ import CreditCardInput from '../components/PaymentsComponents/CreditCardInput';
 
 const PaymentsPage = ({ orderTotal }) => {
   const [paymentMethod, setPaymentMethod] = useState('');
+  const [creditCardInfo, setCreditCardInfo] = useState({
+    cardNumber: '2',
+    expirationDate: '',
+    cvv: '',
+  });
 
-  const handlePaymentSubmit = (e) => {
+  const handlePaymentMethodSubmit = (e) => {
     e.preventDefault();
     setPaymentMethod(e.target.value);
 
     console.log(paymentMethod);
+  };
+
+  const handleCreditCardChange = (name, value) => {
+    setCreditCardInfo((prevCreditCardInfo) => ({
+      ...prevCreditCardInfo,
+      [name]: value,
+    }));
   };
 
   return (
@@ -37,14 +49,23 @@ const PaymentsPage = ({ orderTotal }) => {
                 Credit
               </button>
             </div>
-            <div>{orderTotal()}</div>
+            <div>
+              <h3 className='payments--order-total'>
+                Order Total: ${orderTotal()}
+              </h3>
+            </div>
           </div>
-          {paymentMethod === 'Credit' && <CreditCardInput />}
+          {paymentMethod === 'Credit' && (
+            <CreditCardInput
+              handleCreditCardChange={handleCreditCardChange}
+              creditCardInfo={creditCardInfo}
+            />
+          )}
         </div>
         <button
           type='submit'
           className='button blue'
-          onClick={handlePaymentSubmit}
+          onClick={handlePaymentMethodSubmit}
         >
           Submit Payment
         </button>
