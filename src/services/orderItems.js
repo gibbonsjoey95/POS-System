@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:4000/api/items';
+const baseUrl = 'https://pizza-pay.fly.dev/api/items';
 
 const getAllOrderItems = () => {
   const request = axios.get(baseUrl);
