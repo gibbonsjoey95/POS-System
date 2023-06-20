@@ -1,25 +1,60 @@
+import { useState } from 'react';
 import NumericKeypad from '../NumericKeypad';
 
-const CreditCardInput = ({ handleCreditCardChange, creditCardInfo }) => {
+const CreditCardInput = ({ creditCardInfo }) => {
+  const [enteredNumbers, setEnteredNumbers] = useState('');
+
+  // const handleCreditCardInputChange = (event) => {
+  //   const input = event.target.value;
+  //   setEnteredNumbers(input);
+  // };
+
+  const handleCreditCardInputChange = (event) => {
+    const input = event.target.value;
+    const sanitizedInput = input.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    const formattedInput = sanitizedInput
+      .slice(0, 16) // Limit to a maximum of 16 digits
+      .replace(/(.{4})/g, '$1-') // Insert '-' after every 4 characters
+      .slice(0, -1); // Remove the trailing '-'
+
+    setEnteredNumbers(formattedInput);
+  };
+
+  const handleDeleteOneNumberFromCreditCard = () => {
+    if (enteredNumbers.length > 0) {
+      let updatedNumbers = enteredNumbers.slice(0, -1);
+
+      if (updatedNumbers.slice(-1) === '-') {
+        updatedNumbers = updatedNumbers.slice(0, -1);
+      }
+
+      setEnteredNumbers(updatedNumbers);
+    }
+  };
+
   const handleChange = (e) => {
     console.log(e.target.value);
-    handleCreditCardChange(e.target.name, e.target.value);
+    // handleCreditCardChange(e.target.name, e.target.value);
   };
 
   return (
     <div>
       <div>
-        <NumericKeypad />
+        <NumericKeypad
+          enteredNumbers={enteredNumbers}
+          setEnteredNumbers={setEnteredNumbers}
+          onDelete={handleDeleteOneNumberFromCreditCard}
+        />
       </div>
       <label htmlFor='cardNumber'>Card Number:</label>
       <input
         type='text'
         id='cardNumber'
         name='cardNumber'
-        value={creditCardInfo.cardNumber}
-        onChange={handleChange}
-        maxLength='16'
-        minLength='16'
+        value={enteredNumbers}
+        onChange={handleCreditCardInputChange}
+        maxLength={19}
+        autoComplete='off'
         required
       />
 

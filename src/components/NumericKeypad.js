@@ -1,25 +1,32 @@
 import { useState } from 'react';
 
-const NumericKeypad = ({ onInput, onCancel }) => {
+// const NumericKeypad = ({ onInput, onCancel }) => {
+const NumericKeypad = ({ enteredNumbers, setEnteredNumbers, onDelete }) => {
   const [value, setValue] = useState('');
 
   const handleInput = (number) => {
-    setValue((prevValue) => prevValue + number);
-    // onInput(value + number);
-    console.log(value);
+    if (enteredNumbers.length < 19) {
+      const updatedNumbers = enteredNumbers.replace(/\D/g, '') + number; // Remove non-digit characters
+      const formattedNumbers = updatedNumbers.replace(/(\d{4})(?=\d)/g, '$1-');
+
+      setEnteredNumbers(formattedNumbers);
+    }
   };
+
+  // const handleInput = (number) => {
+  //   setValue((prevValue) => prevValue + number);
+  //   // onInput(value + number);
+  //   console.log(value);
+  // };
 
   const handleDelete = () => {
-    const newValue = value.slice(0, -1);
-    setValue(newValue);
-    // onInput(newValue);
-    console.log(value);
+    onDelete();
   };
 
-  const handleCancel = () => {
-    setValue('');
-    onCancel();
-  };
+  // const handleCancel = () => {
+  //   setValue('');
+  //   onCancel();
+  // };
 
   return (
     <div className='numeric-keypad'>
@@ -57,9 +64,7 @@ const NumericKeypad = ({ onInput, onCancel }) => {
         </button>
       </div>
       <div className='numeric-keypad-row'>
-        <button className='button blue' onClick={handleCancel}>
-          Cancel
-        </button>
+        <button className='button blue'>Cancel</button>
         <button className='button blue' onClick={() => handleInput('0')}>
           0
         </button>

@@ -5,7 +5,7 @@ import CreditCardInput from '../components/PaymentsComponents/CreditCardInput';
 const PaymentsPage = ({ orderTotal }) => {
   const [paymentMethod, setPaymentMethod] = useState('');
   const [creditCardInfo, setCreditCardInfo] = useState({
-    cardNumber: '2',
+    cardNumber: '',
     expirationDate: '',
     cvv: '',
   });
