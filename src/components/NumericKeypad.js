@@ -1,16 +1,25 @@
 import { useState } from 'react';
 
 // const NumericKeypad = ({ onInput, onCancel }) => {
-const NumericKeypad = ({ enteredNumbers, setEnteredNumbers, onDelete }) => {
+const NumericKeypad = ({
+  enteredNumbers,
+  setEnteredNumbers,
+  onDelete,
+  onKeyPress,
+}) => {
   const [value, setValue] = useState('');
 
-  const handleInput = (number) => {
-    if (enteredNumbers.length < 19) {
-      const updatedNumbers = enteredNumbers.replace(/\D/g, '') + number; // Remove non-digit characters
-      const formattedNumbers = updatedNumbers.replace(/(\d{4})(?=\d)/g, '$1-');
+  // const handleInput = (number) => {
+  //   if (enteredNumbers.length < 19) {
+  //     const updatedNumbers = enteredNumbers.replace(/\D/g, '') + number; // Remove non-digit characters
+  //     const formattedNumbers = updatedNumbers.replace(/(\d{4})(?=\d)/g, '$1-');
 
-      setEnteredNumbers(formattedNumbers);
-    }
+  //     setEnteredNumbers(formattedNumbers);
+  //   }
+  // };
+
+  const handleInput = (number) => {
+    onKeyPress(number);
   };
 
   // const handleInput = (number) => {
