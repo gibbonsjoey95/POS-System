@@ -41,7 +41,8 @@ const CreditCardInput = ({ creditCardInfo }) => {
 
     // Update the corresponding state variable based on the field name
     switch (name) {
-      case 'cardNumber':
+      case 'creditNumber':
+        console.log('here');
         setEnteredNumbers(value);
         break;
       case 'expirationDate':
@@ -55,17 +56,73 @@ const CreditCardInput = ({ creditCardInfo }) => {
     }
   };
 
+  // console.log('outside', enteredNumbers);
+  // const handleKeyPress = (number) => {
+  //   // Determine the active field and update the corresponding state variable
+  //   switch (activeField) {
+  //     case 'CreditCard':
+  //       const sanitizedInput = enteredNumbers.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+  //       const formattedInput = sanitizedInput
+  //         .slice(0, 16) // Limit to a maximum of 16 digits
+  //         .replace(/(.{4})/g, '$1-') // Insert '-' after every 4 characters
+  //         .slice(0, -1); // Remove the trailing '-'
+
+  //       setEnteredNumbers(formattedInput);
+  //       console.log('sanitized input', sanitizedInput);
+  //       console.log('formatted input', formattedInput);
+
+  //       if (enteredNumbers.length < 16) {
+  //         setEnteredNumbers(enteredNumbers + number);
+  //       } else {
+  //         console.log('16 digits');
+  //       }
+  //       break;
+  //     case 'ExpirationDate':
+  //       setExpirationDate(expirationDate + number);
+  //       break;
+  //     case 'Cvv':
+  //       setCvv(cvv + number);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
+  const handleCreditCardKeyPress = (number) => {
+    //   const sanitizedInput = enteredNumbers.replace(/[^0-9]/g, '');
+    //   const formattedInput = sanitizedInput
+    //     .slice(0, 16)
+    //     .replace(/(.{4})/g, '$1-')
+    //     .slice(0, -1);
+
+    const sanitizedInput = enteredNumbers.replace(/\D/g, ''); // Keep only numbers
+    const formattedInput = sanitizedInput.replace(/(.{4})(?=.)/g, '$1-');
+
+    if (formattedInput.length < 19) {
+      setEnteredNumbers(formattedInput + number);
+    } else {
+      return enteredNumbers;
+    }
+  };
+
+  const handleExpirationDateKeyPress = (number) => {
+    setExpirationDate(expirationDate + number);
+  };
+
+  const handleCvvKeyPress = (number) => {
+    setCvv(cvv + number);
+  };
+
   const handleKeyPress = (number) => {
-    // Determine the active field and update the corresponding state variable
     switch (activeField) {
       case 'CreditCard':
-        setEnteredNumbers(enteredNumbers + number);
+        handleCreditCardKeyPress(number);
         break;
       case 'ExpirationDate':
-        setExpirationDate(expirationDate + number);
+        handleExpirationDateKeyPress(number);
         break;
       case 'Cvv':
-        setCvv(cvv + number);
+        handleCvvKeyPress(number);
         break;
       default:
         break;
@@ -101,9 +158,11 @@ const CreditCardInput = ({ creditCardInfo }) => {
         name='cardNumber'
         value={enteredNumbers}
         // onChange={handleCreditCardInputChange}
-        onChange={handleInputChange}
+        // onChange={handleInputChange}
+        onChange={handleKeyPress}
         onFocus={handleCreditFocus}
         maxLength={19}
+        minLength={19}
         autoComplete='off'
         required
       />
@@ -118,8 +177,8 @@ const CreditCardInput = ({ creditCardInfo }) => {
         // onChange={handleChange}
         onChange={handleInputChange}
         onFocus={handleExpirationFocus}
-        maxLength='5'
-        minLength='5'
+        maxLength={5}
+        minLength={5}
         required
       />
 
@@ -133,8 +192,8 @@ const CreditCardInput = ({ creditCardInfo }) => {
         // onChange={handleChange}
         onChange={handleInputChange}
         onFocus={handleCvvFocus}
-        maxLength='3'
-        minLength='3'
+        maxLength={3}
+        minLength={3}
         required
       />
     </div>

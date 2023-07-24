@@ -40,44 +40,86 @@ const NumericKeypad = ({
   return (
     <div className='numeric-keypad'>
       <div className='numeric-keypad-row'>
-        <button className='button blue' onClick={() => handleInput('1')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('1')}
+        >
           1
         </button>
-        <button className='button blue' onClick={() => handleInput('2')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('2')}
+        >
           2
         </button>
-        <button className='button blue' onClick={() => handleInput('3')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('3')}
+        >
           3
         </button>
       </div>
       <div className='numeric-keypad-row'>
-        <button className='button blue' onClick={() => handleInput('4')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('4')}
+        >
           4
         </button>
-        <button className='button blue' onClick={() => handleInput('5')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('5')}
+        >
           5
         </button>
-        <button className='button blue' onClick={() => handleInput('6')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('6')}
+        >
           6
         </button>
       </div>
       <div className='numeric-keypad-row'>
-        <button className='button blue' onClick={() => handleInput('7')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('7')}
+        >
           7
         </button>
-        <button className='button blue' onClick={() => handleInput('8')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('8')}
+        >
           8
         </button>
-        <button className='button blue' onClick={() => handleInput('9')}>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('9')}
+        >
           9
         </button>
       </div>
       <div className='numeric-keypad-row'>
-        <button className='button blue'>Cancel</button>
-        <button className='button blue' onClick={() => handleInput('0')}>
+        <button className='button blue' type='button'>
+          Cancel
+        </button>
+        <button
+          className='button blue'
+          type='button'
+          onClick={() => handleInput('0')}
+        >
           0
         </button>
-        <button className='button blue' onClick={handleDelete}>
+        <button className='button blue' type='button' onClick={handleDelete}>
           Delete
         </button>
       </div>
