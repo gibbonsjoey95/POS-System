@@ -38,13 +38,20 @@ const CreditCardInput = ({ creditCardInfo }) => {
 
   const handleCreditCardKeyPress = (number) => {
     const sanitizedInput = enteredNumbers.replace(/\D/g, '');
-    const formattedInput = sanitizedInput.replace(/(.{4})(?=.)/g, '$1-');
+    const formattedInput = sanitizedInput.replace(/(.{4})/g, '$1-');
 
     if (formattedInput.length < 19) {
       setEnteredNumbers(formattedInput + number);
     } else {
       return enteredNumbers;
     }
+  };
+
+  const formatCreditCardNumber = (input) => {
+    const sanitizedInput = input.replace(/\D/g, '').slice(0, 16);
+    const formattedInput = sanitizedInput.replace(/(.{4})/g, '$1-');
+
+    return formattedInput;
   };
 
   const handleExpirationDateKeyPress = (number) => {
@@ -55,21 +62,41 @@ const CreditCardInput = ({ creditCardInfo }) => {
     setCvv(cvv + number);
   };
 
+  // Keep here just until done to be able to use for future reference
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+
+  //   // Update the corresponding state variable based on the field name
+  //   switch (name) {
+  //     case 'cardNumber':
+  //       console.log('here');
+  //       setEnteredNumbers(value);
+  //       break;
+  //     case 'expirationDate':
+  //       console.log('typed');
+  //       setExpirationDate(value);
+  //       break;
+  //     case 'cvv':
+  //       console.log('cvv');
+  //       setCvv(value);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
     // Update the corresponding state variable based on the field name
     switch (name) {
       case 'cardNumber':
-        console.log('here');
-        setEnteredNumbers(value);
+        setEnteredNumbers(formatCreditCardNumber(value));
         break;
       case 'expirationDate':
-        console.log('typed');
         setExpirationDate(value);
         break;
       case 'cvv':
-        console.log('cvv');
         setCvv(value);
         break;
       default:
