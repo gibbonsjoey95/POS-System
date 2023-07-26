@@ -36,6 +36,22 @@ const CreditCardInput = ({ creditCardInfo }) => {
   const [expirationDate, setExpirationDate] = useState('');
   const [cvv, setCvv] = useState('');
 
+  const formatCreditCardNumber = (input) => {
+    const sanitizedInput = input.replace(/\D/g, '').slice(0, 16);
+    const formattedInput = sanitizedInput.replace(/(.{4})/g, '$1-');
+
+    return formattedInput;
+  };
+
+  const formatExpirationDate = (input) => {
+    const sanitizedInput = input.replace(/\D/g, '');
+    const month = sanitizedInput.slice(0, 2);
+    const year = sanitizedInput.slice(2, 4);
+
+    // Format the expiration date as "mm/yy"
+    return `${month}/${year}`;
+  };
+
   const handleCreditCardKeyPress = (number) => {
     const sanitizedInput = enteredNumbers.replace(/\D/g, '');
     const formattedInput = sanitizedInput.replace(/(.{4})/g, '$1-');
@@ -47,15 +63,24 @@ const CreditCardInput = ({ creditCardInfo }) => {
     }
   };
 
-  const formatCreditCardNumber = (input) => {
-    const sanitizedInput = input.replace(/\D/g, '').slice(0, 16);
-    const formattedInput = sanitizedInput.replace(/(.{4})/g, '$1-');
-
-    return formattedInput;
-  };
-
   const handleExpirationDateKeyPress = (number) => {
-    setExpirationDate(expirationDate + number);
+    let sanitizedInput;
+    let month = '';
+    let year;
+
+    if (expirationDate.length < 5) {
+      setExpirationDate(expirationDate + number);
+
+      sanitizedInput = (expirationDate + number).replace(/\D/g, '');
+
+      if (sanitizedInput[0] != 1) {
+        sanitizedInput = `0${sanitizedInput}`;
+      }
+      month = sanitizedInput.slice(0, 2);
+      year = sanitizedInput.slice(2, 4);
+
+      setExpirationDate(`${month}/${year}`);
+    }
   };
 
   const handleCvvKeyPress = (number) => {
@@ -85,6 +110,7 @@ const CreditCardInput = ({ creditCardInfo }) => {
   //   }
   // };
 
+  // handles keyboard entries
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
@@ -94,7 +120,8 @@ const CreditCardInput = ({ creditCardInfo }) => {
         setEnteredNumbers(formatCreditCardNumber(value));
         break;
       case 'expirationDate':
-        setExpirationDate(value);
+        // setExpirationDate(value);
+        setExpirationDate(formatExpirationDate(value));
         break;
       case 'cvv':
         setCvv(value);
@@ -104,6 +131,7 @@ const CreditCardInput = ({ creditCardInfo }) => {
     }
   };
 
+  // handles NumericKeypad.js entries
   const handleKeyPress = (number) => {
     switch (activeField) {
       case 'CreditCard':
